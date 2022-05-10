@@ -3,18 +3,18 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+         #
+#    By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/12 10:52:24 by zmeribaa          #+#    #+#              #
-#    Updated: 2022/05/08 14:37:24 by zmeribaa         ###   ########.fr        #
+#    Updated: 2022/05/09 14:15:06 by hbouhsis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	=	Minishell
 CC		= 	cc
-SRC		=	./Parsing/*.c minishell.c
+SRC		=	./Parsing/*.c minishell.c ./execution/*.c
 LIB		= -I./Includes 
-FLAGS	=
+FLAGS	= -Wall -Wextra -Werror -g -lreadline -fsanitize=address
 
 all : $(NAME)
 

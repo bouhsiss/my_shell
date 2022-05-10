@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:37:11 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/21 22:07:45 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/09 15:38:26 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "parser.h"
+#include "executer.h"
 
 typedef struct s_minishell
 {
