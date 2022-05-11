@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:13:15 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/09 22:46:59 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/11 18:37:04 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,42 @@ char **bin_path(char **env)
 	return(path);
 }
 
+void execute_cmd(t_parse *cmd_list, int *ends)
+{
+	dup2(ends[1], STDOUT_FILENO);
+	execvp(cmd_list->args[0], cmd_list->args);
+}
+
+void cleanup(int *ends)
+{
+	wait(0);
+	dup2(ends[0], STDIN_FILENO);
+}
+
 void execute(char **env)
 {
 	int cmds_nbr;
-	int id;
-	char **path;
-	int i=0;
+	// int id;
+	// int ends[2];
+	t_parse *cmd_list;
 	
-	path = bin_path(env);
+	env = 0;
 	cmds_nbr = count_and_lowcase();
-	while(cmds_nbr > 1)
-	{
-		 
-	}
+	cmd_list = mini.command;
+	// while(cmds_nbr > 1)
+	// {
+	// 	if(pipe(ends) == -1)
+	// 	{
+	// 		perror("Pipe :");
+	// 		exit(1);
+	// 	}
+	// 	id = fork();
+	// 	if (id == 0)
+	// 		execute_cmd(cmd_list, ends);
+	// 	else
+	// 		cleanup(ends);
+	// 	cmd_list = cmd_list->next;
+	// 	cmds_nbr--;
+	// }
+	// execute_cmd(cmd_list, ends);
 }
