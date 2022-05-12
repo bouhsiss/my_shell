@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ziyad <ziyad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/12 00:38:58 by ziyad            ###   ########.fr       */
+/*   Updated: 2022/05/12 10:40:59 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ int main()
 			printf("argsc == %d\n", cmd_list->argsc);
 			printf("======================\n");
 			if (cmd_list->redirection == 0)
-				printf("had lqlawi khawi\n");
+				printf("empty\n");
 			while(cmd_list->redirection)
 			{
-				printf("ana hna azebi\n");
+				printf("am here\n");
 				printf("redirection->type %d\n", cmd_list->redirection->type);
 				printf("redirection->file %s\n", cmd_list->redirection->file);
 				printf("redirection->fd %d\n", cmd_list->redirection->fd);
