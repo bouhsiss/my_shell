@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_commad.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ziyad <ziyad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 02:03:13 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/22 22:56:52 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:56:13 by ziyad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ t_parse	*init_commands(void)
 	cmd->cmd = NULL;
 	cmd->args = NULL;
 	cmd->argsc = 0;
+	cmd->redirection = NULL;
 	cmd->next = NULL;
 	mini.command = cmd;
 	return (cmd);
@@ -76,7 +77,6 @@ t_parse *add_command(void)
 
 void factory(t_token **token, t_parse *command, int i)
 {
-	command->redirection = NULL;
 	if (token[i]->type == T_WORD)
 	{
 		if (command->args == NULL)

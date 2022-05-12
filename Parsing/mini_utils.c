@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ziyad <ziyad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:36:49 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/14 18:23:45 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:42:32 by ziyad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,11 @@ char *ft_strdup(char *s)
 	i = 0;
 	while (s[i])
 		i++;
-	p = (char *)malloc(sizeof(char) * (i + 1));
+	p = (char *)malloc(i + 1);
 	if (p == NULL)
 		return (NULL);
 	i = 0;
-	while (s[i])
+	while (s[i] != '\0')
 	{
 		p[i] = s[i];
 		i++;

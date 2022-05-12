@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: ziyad <ziyad@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/11 20:26:39 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/12 00:38:58 by ziyad            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **env)
+int main()
 {
-	ac = 0;
-	av = 0;
-	env = 0;
+	// ac = 0;
+	// av = 0;
+	// env = 0;
 	int i;
 	t_parse *cmd_list;
 
@@ -28,7 +28,7 @@ int main(int ac, char **av, char **env)
 			ft_putstr_fd("exit\n", 1);
 			exit(0);
 		}
-		if (mini.line == '\0')
+		if (mini.line == (void *)0)
 			continue ;
 		add_history(mini.line);
 		parse();
