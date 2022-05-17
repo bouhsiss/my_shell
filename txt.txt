@@ -1,0 +1,9 @@
+Includes
+Makefile
+Minishell
+Minishell.dSYM
+Parsing
+README.md
+execution
+minishell.c
+txt.txt

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:13:15 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/16 17:41:55 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/17 16:22:22 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,30 +71,52 @@ int openf_in(char *file)
 	}
 	else
 	{
-		dprintf(2, "no such file or directory: %s", file );
+		dprintf(2, "no such file or directory: %s\n", file );
 		exit(0);
 	}
 }
 
+int stdin_fd(t_parse *cmd_list, int fd_in)
+{
+	t_redirection *redr;
+	
+	redr = cmd_list->redirection;
+	while(redr != NULL)
+	{
+		if(redr->type == 1)
+			fd_in=openf_in(redr->file);
+		redr = redr->next;
+	}
+	return(fd_in);
+}
+
+int stdout_fd(t_parse *cmd_list, int fd_out)
+{
+	t_redirection *redr;
+
+	redr = cmd_list->redirection;
+	while(redr)
+	{
+		if(redr->type == 2)
+			fd_out = open(redr->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
+		else if (redr->type == 4)
+			fd_out = open(redr->file, O_CREAT | O_RDWR | O_APPEND, 0644);
+		redr = redr->next;
+	}
+	return(fd_out);
+}
+
 void cmd_exec(int fd_in, int *ends, t_parse *cmd_list)
 {	
-	int fd_out;
-	if(cmd_list-> redirection != NULL && cmd_list->redirection->type == 1)
-		fd_in = openf_in(cmd_list->redirection->file);
+	int fd_out = ends[1];
+	if ((cmd_list->next != NULL) || (cmd_list->redirection != NULL))
+	{
+		fd_out = stdout_fd(cmd_list, fd_out);
+		dup2(fd_out, 1);
+	}
+	fd_in = stdin_fd(cmd_list, fd_in);
 	dup2(fd_in, 0);
-	
-	if (cmd_list->next != NULL)
-		dup2(ends[1], 1);
-	if (cmd_list->redirection != NULL && cmd_list->redirection->type == 2)
-	{
-		fd_out = open(cmd_list->redirection->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		dup2(fd_out, 1);
-	}
-	if (cmd_list->redirection != NULL && cmd_list->redirection->type == 4)
-	{
-		fd_out = open(cmd_list->redirection->file, O_CREAT | O_RDWR | O_APPEND, 0644);
-		dup2(fd_out, 1);
-	}
+	close(fd_in);
 	close(ends[0]);
 	execvp(cmd_list->args[0], cmd_list->args);
 }
@@ -123,7 +145,7 @@ void execute(char **env)
 			exit(EXIT_FAILURE);
 		}
 		if (id == 0)
-			cmd_exec(fd_in , ends, cmd_list);
+			cmd_exec(fd_in, ends, cmd_list);
 		else
 		{
 			wait(0);
