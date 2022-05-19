@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/17 15:32:58 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:56:59 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int main(int ac, char **av, char **env)
 			ft_putstr_fd("exit\n", 1);
 			exit(0);
 		}
-		if (mini.line == (void *)0)
+		if (mini.line[0] == '\0')
 			continue ;
-		add_history(mini.line);
+		if (mini.line)
+			add_history(mini.line);
 		parse();
 		execute(env);
 	}

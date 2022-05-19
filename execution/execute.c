@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:13:15 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/17 16:22:22 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/19 18:53:36 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,25 +76,68 @@ int openf_in(char *file)
 	}
 }
 
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
+}
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
+
 int stdin_fd(t_parse *cmd_list, int fd_in)
 {
 	t_redirection *redr;
+	int temp;
+	char *rl;
 	
 	redr = cmd_list->redirection;
-	while(redr != NULL)
+	while(redr)
 	{
 		if(redr->type == 1)
 			fd_in=openf_in(redr->file);
+		else if(redr->type == 3)
+		{
+			temp = open("/tmp/temp", O_CREAT | O_RDWR | O_TRUNC, 0644);
+
+			while (1)
+			{
+				rl = readline(">");
+				if (ft_strcmp(rl, redr->file) == 0)
+					break ;
+				ft_putendl_fd(rl, temp);
+			}
+			close(temp);
+			fd_in= open("/tmp/temp", O_RDONLY);
+		}
 		redr = redr->next;
 	}
 	return(fd_in);
 }
 
-int stdout_fd(t_parse *cmd_list, int fd_out)
+int stdout_fd(t_parse *cmd_list, int fd_out, int ends)
 {
 	t_redirection *redr;
 
 	redr = cmd_list->redirection;
+	if (cmd_list->next != NULL)
+		fd_out = ends;
 	while(redr)
 	{
 		if(redr->type == 2)
@@ -108,17 +151,27 @@ int stdout_fd(t_parse *cmd_list, int fd_out)
 
 void cmd_exec(int fd_in, int *ends, t_parse *cmd_list)
 {	
-	int fd_out = ends[1];
-	if ((cmd_list->next != NULL) || (cmd_list->redirection != NULL))
-	{
-		fd_out = stdout_fd(cmd_list, fd_out);
-		dup2(fd_out, 1);
-	}
+	int fd_out = 1;
+
 	fd_in = stdin_fd(cmd_list, fd_in);
-	dup2(fd_in, 0);
-	close(fd_in);
+	if(fd_in != 0)
+	{
+		
+		dup2(fd_in, STDIN_FILENO);
+		close(fd_in);
+	}
 	close(ends[0]);
-	execvp(cmd_list->args[0], cmd_list->args);
+	fd_out = stdout_fd(cmd_list, fd_out, ends[1]);
+	if(fd_out != 1)
+	{
+		dup2(fd_out, 1);
+		close(fd_out);
+	}
+	if (execvp(cmd_list->args[0], cmd_list->args) == -1)
+	{
+		dprintf(2, "error\n");
+		exit(0);
+	}
 }
 
 void execute(char **env)
@@ -150,7 +203,8 @@ void execute(char **env)
 		{
 			wait(0);
 			close(ends[1]);
-			fd_in = ends[0];
+			if (cmd_list->next != NULL)
+				fd_in = ends[0];
 			cmds_nbr--;
 			cmd_list = cmd_list->next;
 		}
