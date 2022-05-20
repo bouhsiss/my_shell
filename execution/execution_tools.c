@@ -6,11 +6,25 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 15:41:04 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/16 19:02:06 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/20 17:02:53 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
+
+
+int openf_in(char *file)
+{
+	if (access(file, F_OK) == 0)
+	{
+		return(open(file, O_RDONLY));
+	}
+	else
+	{
+		dprintf(2, "no such file or directory: %s\n", file );
+		exit(0);
+	}
+}
 
 int	ft_strncmp(char *s1, char *s2, size_t n)
 {
@@ -98,3 +112,86 @@ char	**ft_split(char const *s, char c)
 	str[i] = 0;
 	return (str);
 }
+
+
+static int	countlen(long n)
+{
+	int	i;
+
+	i = 0;
+	if (n == 0)
+		return (1);
+	while (n != 0)
+	{
+		n /= 10;
+		i++;
+	}
+	return (i);
+}
+
+static char	*cnvrt(char *str, int len, long n, int i)
+{
+	while (n > 0 && len != i)
+	{
+		str[len - 1] = n % 10 + '0';
+		n /= 10;
+		len--;
+	}
+	return (str);
+}
+
+char	*ft_itoa(int n)
+{	
+	int		len;
+	char	*str;
+	int		i;
+	long	ng;
+
+	i = 0;
+	ng = (long)n;
+	len = countlen(ng);
+	if (!n)
+		return (ft_strdup("0"));
+	if (n < 0)
+		len++;
+	str = (char *)malloc (sizeof(char) * len + 1);
+	if (!(str))
+		return (NULL);
+	if (n < 0)
+	{
+		ng *= -1;
+		str[i] = '-';
+		i++;
+	}
+	str = cnvrt(str, len, ng, i);
+	str[len] = '\0';
+	return (str);
+}
+
+
+int	ft_strcmp(char *s1, char *s2)
+{
+	int i;
+
+	i = 0;
+	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+		i++;
+	return (s1[i] - s2[i]);
+}
+
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	int	i;
+
+	i = 0;
+	if (!s)
+		return ;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
+	write(fd, "\n", 1);
+}
+

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/19 18:56:59 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/20 18:44:39 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int main(int ac, char **av, char **env)
 
 
 // printing loop
+
+// 		t_parse *cmd_list=mini.command;
+// 		int i = 0;
 // 		while(cmd_list)
 // 		{
 // 			printf("cmd == %s\n", cmd_list->cmd);
