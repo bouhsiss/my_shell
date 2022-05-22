@@ -1,132 +1,122 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   execute.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/09 14:13:15 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/20 21:05:43 by hbouhsis         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+#include"minishell.h"
 
-#include "minishell.h"
-
-char *lowcase(char *str)
+void dupfd2fd(int fd, int othe_fd)
 {
-	int i;
-
-	i = 0;
-	while(str[i])
-	{
-		if (str[i] >= 65 && str[i] <= 90)
-			str[i] = str[i] + 32;
-		i++;	
-	}
-	return(str);
+	dup2(fd, othe_fd);
+	close(fd);
 }
 
-int count_and_lowcase()
+void dup_redr(t_parse *cmd_list, int fd_in, int fd_out)
 {
-	int count;
-	t_parse *cmd_list;
+	int in_flag = 0;
+	int out_flag = 0;
+	t_redirection *red = cmd_list->redirection;
+	while (red != NULL) {
+		if (red->type == IN_REDR) {
+			in_flag = 1;
+		} if (red->type == OUT_REDR || red->type == APPEND_REDR) {
+			out_flag = 1;
+		}
+		red = red->next;
+	}
+	if (in_flag)
+		dupfd2fd(fd_in, STDIN_FILENO);
+	if (out_flag)
+		dupfd2fd(fd_out, STDOUT_FILENO);
+}
 
-	count = 0;
-	cmd_list = mini.command;
-	while(cmd_list)
+void redirection_helper(t_parse *cmd_list)
+{
+	int fd_in = STDIN_FILENO;
+	int fd_out = STDOUT_FILENO;
+
+	t_redirection *redr = cmd_list->redirection;
+	while(redr)
 	{
+		if (redr->type == IN_REDR || redr->type == HEREDOC)
+		{
+			if (fd_in != STDIN_FILENO)
+				close(fd_in);
+			if (fd_in == IN_REDR)
+				fd_in = open(redr->file, O_RDONLY, 0644);
+
+		}
+		else if(redr->type == OUT_REDR || redr->type == APPEND_REDR)
+		{
+			if (fd_out != STDOUT_FILENO)
+				close(fd_out);
+			if(redr->type == OUT_REDR)
+				fd_out = open(redr->file, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+			else if (redr->type == APPEND_REDR)
+				fd_out = open(redr->file, O_WRONLY | O_CREAT | O_APPEND, 0644);
+		}	
+		redr = redr->next;
+	}
+
+	dup_redr(cmd_list, fd_in, fd_out);
+}
+
+void exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends)
+{
+	pid_t  id;
+
+	id = fork();
+	if (id == 0)
+	{
+		if (fd_in != STDIN_FILENO)
+			dupfd2fd(fd_in, STDIN_FILENO);
+		close(ends[WRITE_END]);
+		if (cmd_list->redirection)
+			redirection_helper(cmd_list);
 		if (cmd_list->cmd)
 		{
-			count++;
-			cmd_list->cmd = lowcase(cmd_list->cmd);
+			if (execvp(cmd_list->args[0], cmd_list->args) == -1)
+			{
+				exit(EXIT_FAILURE);
+			}
 		}
-		cmd_list = cmd_list->next;
+		exit(EXIT_FAILURE);
 	}
-	return(count);
-}
-
-char **bin_path(char **env)
-{
-	int i;
-	char **path=NULL;
-	
-	i = 0;
-
-	while(env[i])
-	{
-		if (ft_strncmp(env[i], "PATH=", 5) == 0)
-		{
-			path = ft_split(env[i], '=');
-			path = ft_split(path[1], ':');
-			return(path);
-		}
-		i++;
-	}
-	return(path);
-}
-
-t_parse *ignore_redr(t_parse *cmd_list)
-{
-	t_redirection *redr;
-	
-	if (cmd_list && cmd_list->cmd == NULL && cmd_list->redirection)
-	{
-		redr = cmd_list->redirection;
-		if (redr->type == 2)
-			open(redr->file, O_CREAT | O_RDWR | O_TRUNC, 0644);
-		if (redr->type == 3)
-			open_heredoc(name_generator(), redr->file, 0);
-		if (redr->type == 4)
-			open(redr->file, O_CREAT | O_RDWR | O_APPEND, 0644);
-		 cmd_list = cmd_list->next;
-	}
-	return(cmd_list);
+	if (fd_in != STDIN_FILENO)
+		close(fd_in);
 }
 
 void execute(char **env)
 {
-	int cmds_nbr;
-	pid_t id;
+	(void)env;
 	int ends[2];
-	int fd_in = 0;
-	int fd_out = 1;
+	pid_t id;
 	t_parse *cmd_list;
-	
-	env = 0;
-	cmds_nbr = count_and_lowcase();
-	cmd_list = mini.command;
-	while(cmds_nbr > 0)
+	int fd_in = STDIN_FILENO;
+
+	cmd_list=mini.command;
+	while(cmd_list->next)
 	{
-		cmd_list = ignore_redr(cmd_list);
-		if(pipe(ends) == -1)
-		{
-			perror("Pipe :");
-			exit(1);
-		}
-		if ((id = fork()) == -1)
-		{
-			dprintf(2, "Error");
-			exit(EXIT_FAILURE);
-		}
+		pipe(ends);
+		id = fork();
 		if (id == 0)
 		{
-			dupper(fd_in, ends, cmd_list, fd_out);
-			close(ends[0]);
-			if (execvp(cmd_list->args[0], cmd_list->args) == -1)
+			if(fd_in != STDIN_FILENO)
+				dupfd2fd(fd_in, STDIN_FILENO);
+			dupfd2fd(ends[WRITE_END], STDOUT_FILENO);
+			close(ends[READ_END]);
+			if (cmd_list->redirection)
+				redirection_helper(cmd_list);
+			if (cmd_list->cmd != NULL)
 			{
-				dprintf(2, "error\n");
-				exit(0);
+				if (execvp(cmd_list->args[0], cmd_list->args) == -1)
+				{
+					exit(69420);
+				}
 			}
+			exit(666);
 		}
-		else
-		{
-			wait(0);
-			close(ends[1]);
-			if (cmd_list->next != NULL)
-				fd_in = ends[0];
-			cmds_nbr--;
-			cmd_list = cmd_list->next;
-		}
+		close(ends[WRITE_END]);
+		if (fd_in != STDIN_FILENO)
+			close(fd_in);
+		fd_in = ends[READ_END];
+		cmd_list = cmd_list->next;
 	}
-	cmd_list = ignore_redr(cmd_list);
+	exec_last_cmd(cmd_list, fd_in, ends);
+	while(wait(0) > 0);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/20 20:12:33 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/22 23:53:14 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,17 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/stat.h>
+# include <errno.h>
+# include <stdbool.h>
+
+
+# define WRITE_END 1
+# define READ_END 0
+# define IN_REDR 1
+# define OUT_REDR 2
+# define HEREDOC 3
+# define APPEND_REDR 4
+
 
 void execute(char **env);
 int	ft_strncmp(char *s1, char *s2, size_t n);
