@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:42:01 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/21 22:06:49 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/23 22:13:09 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,7 @@ void create_command(t_token **token)
 		}
 		i++;
 	}
-}
-
-int check_f(t_token **token)
-{
-	int i;
-
-	i = 0;
-	while (token[i])
-	{
-		if (token[i]->type != T_WORD && token[i]->type != T_PIPE
-			&& token[i]->type != T_HEREDOC)
-		{
-			if (ft_strchr(token[i + 1]->value, ' '))
-				return (1);
-			i++;
-		}
-		i++;
-	}
-	return (0);
+	
 }
 
 int	syntax(t_token **token)
@@ -84,8 +66,6 @@ void throw_syntax(int err)
 		ft_putstr_fd("BASH: syntax error!\n", 2);
 	if (err == 2)
 		ft_putstr_fd("BASH: Open Quotes!\n", 2);
-	if (err == 3)
-		ft_putstr_fd("BASH: Wrong Redirection!\n", 2);
 }
 
 void parse(void)
@@ -93,7 +73,9 @@ void parse(void)
 	t_lexer *lexer;
 	t_token **token;
 	int i;
+	int error;
 	
+	error = 1;
 	lexer = init_lexer(mini.line);
 	token = malloc(sizeof(struct s_token *) * 2);
 	i = 0;
@@ -105,13 +87,18 @@ void parse(void)
 		token = realloc_token(token, lexer_get_next_token(lexer));
 	}
 	if (!syntax(token))
+	{
 		throw_syntax(1);
+		error = 0;
+	}
 	else if (mini.l_err == 1)
+	{
 		throw_syntax(2);
-	else if (check_f(token))
-		throw_syntax(3);
+		error = 0;
+	}
 	else
 		create_command(token);
 	free_token(token);
 	free(lexer);
+	// return (error);
 }

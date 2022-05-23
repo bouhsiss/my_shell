@@ -12,11 +12,10 @@ void dup_redr(t_parse *cmd_list, int fd_in, int fd_out)
 	int out_flag = 0;
 	t_redirection *red = cmd_list->redirection;
 	while (red != NULL) {
-		if (red->type == IN_REDR) {
+		if (red->type == IN_REDR || red->type == HEREDOC_REDR)
 			in_flag = 1;
-		} if (red->type == OUT_REDR || red->type == APPEND_REDR) {
+		if (red->type == OUT_REDR || red->type == APPEND_REDR)
 			out_flag = 1;
-		}
 		red = red->next;
 	}
 	if (in_flag)
@@ -33,13 +32,14 @@ void redirection_helper(t_parse *cmd_list)
 	t_redirection *redr = cmd_list->redirection;
 	while(redr)
 	{
-		if (redr->type == IN_REDR || redr->type == HEREDOC)
+		if (redr->type == IN_REDR || redr->type == HEREDOC_REDR)
 		{
 			if (fd_in != STDIN_FILENO)
 				close(fd_in);
-			if (fd_in == IN_REDR)
+			if (redr->type == IN_REDR)
 				fd_in = open(redr->file, O_RDONLY, 0644);
-
+			if (redr->type == HEREDOC_REDR)
+				fd_in = open(redr->file, O_RDONLY, 0644);
 		}
 		else if(redr->type == OUT_REDR || redr->type == APPEND_REDR)
 		{
@@ -52,7 +52,6 @@ void redirection_helper(t_parse *cmd_list)
 		}	
 		redr = redr->next;
 	}
-
 	dup_redr(cmd_list, fd_in, fd_out);
 }
 
@@ -65,7 +64,8 @@ void exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends)
 	{
 		if (fd_in != STDIN_FILENO)
 			dupfd2fd(fd_in, STDIN_FILENO);
-		close(ends[WRITE_END]);
+		if (ends[WRITE_END] > 2)
+			close(ends[WRITE_END]);
 		if (cmd_list->redirection)
 			redirection_helper(cmd_list);
 		if (cmd_list->cmd)
@@ -98,8 +98,10 @@ void execute(char **env)
 		{
 			if(fd_in != STDIN_FILENO)
 				dupfd2fd(fd_in, STDIN_FILENO);
-			dupfd2fd(ends[WRITE_END], STDOUT_FILENO);
-			close(ends[READ_END]);
+			if(ends[WRITE_END] != STDOUT_FILENO)
+				dupfd2fd(ends[WRITE_END], STDOUT_FILENO);
+			if (ends[READ_END] > 2)
+				close(ends[READ_END]);
 			if (cmd_list->redirection)
 				redirection_helper(cmd_list);
 			if (cmd_list->cmd != NULL)
@@ -111,7 +113,8 @@ void execute(char **env)
 			}
 			exit(666);
 		}
-		close(ends[WRITE_END]);
+		if(ends[WRITE_END] > 2)
+			close(ends[WRITE_END]);
 		if (fd_in != STDIN_FILENO)
 			close(fd_in);
 		fd_in = ends[READ_END];
