@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/23 18:50:44 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/24 22:15:03 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define APPEND_REDR 4
 
 
-void execute(char **env);
+void pipeline_execution(char **env);
 int	ft_strncmp(char *s1, char *s2, size_t n);
 char	**ft_split(char const *s, char c);
 void	ft_putendl_fd(char *s, int fd);
@@ -41,5 +41,10 @@ void	ft_putendl_fd(char *s, int fd);
 void name_generator();
 void implement_heredoc();
 void unlink_heredocs();
+void redirection_helper(t_parse *cmd_list);
+void dupfd2fd(int fd, int othe_fd);
+void dup_ends(int *ends, int fd_in);
+char *lowcase(char *str);
+void execute_cmd(t_parse *cmd_list, char **env);
 
 #endif

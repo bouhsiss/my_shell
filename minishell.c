@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/23 22:14:31 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/24 21:47:55 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int main(int ac, char **av, char **env)
 {
 	ac = 0;
 	av = 0;
-	env = 0;
 	while (1)
 	{
 		mini.line = readline("MINISHELL 🥵:");
@@ -31,7 +30,7 @@ int main(int ac, char **av, char **env)
 			add_history(mini.line);
 		parse();
 		implement_heredoc();
-		execute(env);
+		pipeline_execution(env);
 		unlink_heredocs();
 	}
 }
