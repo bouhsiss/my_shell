@@ -45,4 +45,6 @@ void execute_cmd(t_parse *cmd_list, char **env)
 			exit(127);
 		exit(0);
 	}
+
+	exit(99);
 }

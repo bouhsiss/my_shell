@@ -41,11 +41,9 @@ int check_for_out_redr(t_redirection *redr, int fd_out)
 
 void redirection_helper(t_parse *cmd_list)
 {
-	int fd_in;
-	int fd_out;
+	int fd_in = STDIN_FILENO;
+	int fd_out = STDOUT_FILENO;
 
-	fd_in = STDIN_FILENO;
-	fd_out = STDOUT_FILENO;
 	if (cmd_list->redirection)
 	{
 		t_redirection *redr = cmd_list->redirection;
@@ -65,6 +63,6 @@ void redirection_helper(t_parse *cmd_list)
 			}	
 			redr = redr->next;
 		}
+		dup_redr(cmd_list, fd_in, fd_out);
 	}
-	dup_redr(cmd_list, fd_in, fd_out);
 }
