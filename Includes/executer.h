@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/25 10:51:03 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/25 17:03:16 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ void	ft_putendl_fd(char *s, int fd);
 char	*ft_itoa(int n);
 void dupper(int fd_in, int *ends,t_parse *cmd_list, int fd_out);
 int	ft_strcmp(char *s1, char *s2);
-int openf_in(char *file);
 void	ft_putendl_fd(char *s, int fd);
 void name_generator();
 void implement_heredoc();
@@ -46,5 +45,11 @@ void dupfd2fd(int fd, int othe_fd);
 void dup_ends(int *ends, int fd_in);
 char *lowcase(char *str);
 void execute_cmd(t_parse *cmd_list, char **env);
+void close_ends(int *ends, int fd_in);
+
+
+//===== builtins  =====
+int echo_builtin(char **args);
+int cd_builtin(char **args,char **env);
 
 #endif

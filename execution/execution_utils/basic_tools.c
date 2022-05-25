@@ -1,22 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   basic_tools.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/25 13:08:27 by hbouhsis          #+#    #+#             */
+/*   Updated: 2022/05/25 13:31:57 by hbouhsis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
-char *lowcase(char *str)
+char	*lowcase(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!str)
-		return(str);
-	while(str[i])
+		return (str);
+	while (str[i])
 	{
 		if (str[i] >= 65 && str[i] <= 90)
 			str[i] = str[i] + 32;
 		i++;
 	}
-	return(str);
+	return (str);
 }
 
-int	ft_strncmp(char *s1,char *s2, size_t n)
+int	ft_strncmp(char *s1, char *s2, size_t n)
 {
 	unsigned char	*c1;
 	unsigned char	*c2;

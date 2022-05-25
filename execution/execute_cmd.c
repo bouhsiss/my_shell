@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_cmd.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/25 13:07:22 by hbouhsis          #+#    #+#             */
+/*   Updated: 2022/05/25 13:11:37 by hbouhsis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
 int	findp(char **envp)
@@ -33,18 +45,16 @@ char	*ft_paths(char **envp, int p, char *cmd)
 	}
 	return (NULL);
 }
-void execute_cmd(t_parse *cmd_list, char **env)
+
+void	execute_cmd(t_parse *cmd_list, char **env)
 {
-	char *path;
+	char	*path;
 
-
-	if(cmd_list->cmd)
+	if (cmd_list->cmd)
 	{
 		path = ft_paths(env, findp(env), cmd_list->cmd);
 		if (execve(path, cmd_list->args, env) == -1)
 			exit(127);
-		exit(0);
 	}
-
 	exit(99);
 }

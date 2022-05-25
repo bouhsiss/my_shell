@@ -6,13 +6,13 @@
 #    By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/12 10:52:24 by zmeribaa          #+#    #+#              #
-#    Updated: 2022/05/23 14:20:03 by hbouhsis         ###   ########.fr        #
+#    Updated: 2022/05/25 14:53:50 by hbouhsis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME 	=	Minishell
 CC		= 	cc
-SRC		=	./Parsing/*.c minishell.c ./execution/*.c ./execution/execution_utils/*.c
+SRC		=	./Parsing/*.c minishell.c ./execution/*.c ./execution/execution_utils/*.c ./execution/builtins/*.c
 LIB		= -I./Includes 
 FLAGS	= -Wall -Wextra -Werror -g -lreadline -fsanitize=address
 
