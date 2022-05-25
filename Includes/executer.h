@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/25 17:03:16 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/25 22:00:14 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void close_ends(int *ends, int fd_in);
 //===== builtins  =====
 int echo_builtin(char **args);
 int cd_builtin(char **args,char **env);
+int pwd_builtin();
 
 #endif
