@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/25 17:10:36 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:26:29 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	main(int ac, char **av, char **env)
 	av = 0;
 	while (1)
 	{
+		catch_signal();
 		mini.line = readline("MINISHELL 🥵:");
 		if (mini.line == NULL)
 		{

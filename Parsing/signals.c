@@ -5,17 +5,23 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/14 00:05:06 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/14 00:16:36 by zmeribaa         ###   ########.fr       */
+/*   Created: 2022/05/25 18:18:41 by zmeribaa          #+#    #+#             */
+/*   Updated: 2022/05/25 18:18:45 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../Includes/minishell.h"
 
-// void control_c(int signal)
-// {
-//     int i;
-    
-//     i = signal;
-//     i
-// }
+void	ft_signals()
+{
+	printf("\n");
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+}
+
+void	catch_signal(void)
+{
+	signal(SIGINT, ft_signals);
+	signal(SIGQUIT, SIG_IGN);
+}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:37:11 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/09 15:38:26 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:20:14 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ char	*ft_strjoin(char *s1, char *s2);
 void ft_putstr_fd(char *s, int fd);
 char	*ft_strchr(const char *str, int c);
 void	free_token(t_token **token);
+void	catch_signal(void);
 #endif
