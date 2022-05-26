@@ -6,7 +6,7 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 22:52:56 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/22 22:55:49 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/26 10:58:55 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,7 @@ t_token	*lexer_collect_word(t_lexer *lexer)
 		lexer_advance(lexer);
 	}
 	if (val[0] == '\0')
-	{
-		free(val);
-		return (NULL);
-	}
+		return (free_retnull(val));
 	return (init_token(T_WORD, val));
 }
 
@@ -70,10 +67,7 @@ char	*join_word(t_lexer *lexer)
 		lexer_advance(lexer);
 	}
 	if (val[0] == '\0')
-	{
-		free(val);
-		return (NULL);
-	}
+		return ((char *)free_retnull(val));
 	return (val);
 }
 

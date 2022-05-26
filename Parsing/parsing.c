@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:42:01 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/25 16:16:54 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:09:58 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,21 @@ void throw_syntax(int err)
 		ft_putstr_fd("BASH: Open Quotes!\n", 2);
 }
 
+void	free_all(void)
+{
+	if (mini.line)
+		free(mini.line);
+	free_command();
+	mini.line = NULL;
+	mini.command = NULL;
+}
+
 void parse(void)
 {
 	t_lexer *lexer;
 	t_token **token;
 	int i;
-	int error;
 	
-	error = 1;
 	lexer = init_lexer(mini.line);
 	token = malloc(sizeof(struct s_token *) * 2);
 	i = 0;
@@ -87,18 +94,11 @@ void parse(void)
 		token = realloc_token(token, lexer_get_next_token(lexer));
 	}
 	if (!syntax(token))
-	{
 		throw_syntax(1);
-		error = 0;
-	}
 	else if (mini.l_err == 1)
-	{
 		throw_syntax(2);
-		error = 0;
-	}
 	else
 		create_command(token);
 	free_token(token);
 	free(lexer);
-	// return (error);
 }

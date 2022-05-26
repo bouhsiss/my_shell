@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_commad.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 02:03:13 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/12 12:52:01 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:05:36 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,33 @@ void factory(t_token **token, t_parse *command, int i)
 			command->redirection = init_redirection(token[i + 1]->value, token[i]->type);
 		else
 			add_redirecion(command->redirection, token[i + 1]->value, token[i]->type);
+	}
+}
+
+void free_command(void)
+{
+	t_parse *current;
+	t_parse	*tmp;
+	int i;
+	
+	if (mini.command == NULL)
+		return ;
+	current = mini.command;
+	while (current)
+	{
+		if (current->cmd)
+			free(current->cmd);
+		i = 0;
+		while (current->args[i] && current->args)
+		{
+			free(current->args[i]);
+			i++;
+		}
+		if (current->args)
+			free(current->args);
+		free_redirections(current->redirection);
+		tmp = current;
+		current = current->next;
+		free(tmp);
 	}
 }

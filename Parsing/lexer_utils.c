@@ -6,7 +6,7 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 22:49:07 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/23 01:08:19 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/26 10:56:43 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,11 @@ t_token *err_quotes(char *val)
 {
 	free(val);
 	mini.l_err = 1;
+	return (NULL);
+}
+
+t_token *free_retnull(char *val)
+{
+	free(val);
 	return (NULL);
 }

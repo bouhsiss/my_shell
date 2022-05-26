@@ -6,7 +6,7 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 03:57:57 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/14 00:28:56 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:04:32 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,19 @@ void	add_redirecion(t_redirection *head, char *val, t_type type)
 	new->type = type;
 	new->next = NULL;
 	current->next = new;
+}
+
+void free_redirections(t_redirection *rdr)
+{
+	t_redirection *current;
+	t_redirection *temp;
+	
+	current = rdr;
+	while (current)
+	{
+		free(current->file);
+		temp = current;
+		current = current->next;
+		free(temp);
+	}
 }

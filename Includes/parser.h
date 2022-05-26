@@ -98,5 +98,9 @@ void create_command(t_token **token);
 t_token **realloc_token(t_token **curr, t_token *token);
 void parse(void);
 t_token *err_quotes(char *val);
+t_token *free_retnull(char *val);
+void free_command(void);
+void free_redirections(t_redirection *rdr);
+void	free_all(void);
 #endif
 

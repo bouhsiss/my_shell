@@ -3,39 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/25 22:13:57 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/26 11:24:53 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
 	ac = 0;
+	env= 0;
 	av = 0;
-	env = 0;
 	while (1)
 	{
+		free_all();
 		catch_signal();
 		mini.line = readline("MINISHELL 🥵:");
 		if (mini.line == NULL)
 		{
-			ft_putstr_fd("exit\n", 1);
+			printf("exit\n");
 			exit(0);
 		}
 		if (mini.line[0] == '\0')
 			continue ;
-		if (mini.line)
-			add_history(mini.line);
+		add_history(mini.line);	
 		parse();
-		implement_heredoc();
-		pipeline_execution(env);
-		unlink_heredocs();
+		system("leaks Minishell");
+		// implement_heredoc();
+		// pipeline_execution(env);
+		// unlink_heredocs();
 	}
 }
+
 
 // printing loop
 
