@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 22:52:56 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 19:36:19 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:52:40 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 t_token	*lexer_collect_word(t_lexer *lexer)
 {
-	char	*val;
-	char	*s;
-
+	char *val;
+	char *s;
+	
 	val = ft_strdup("");
-	while (!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
+	while(!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
 	{
+		
 		if (lexer->c == '\'' || lexer->c == '\"')
 		{
 			s = join_string(lexer, lexer->c);
@@ -78,7 +79,8 @@ char	*after_quotes(t_lexer *lexer, char *val)
 		return (ft_strjoin(val, join_word(lexer)));
 }
 
-t_token	*lexer_collect_string(t_lexer *lexer, char c)
+
+t_token *lexer_collect_string(t_lexer *lexer, char c)
 {
 	char	*val;
 	char	*s;
@@ -93,7 +95,7 @@ t_token	*lexer_collect_string(t_lexer *lexer, char c)
 			lexer_retreat(lexer);
 		}
 		else
-			s = lexer_get_current_char_as_string(lexer);
+			s = lexer_get_current_char_as_string(lexer);			
 		val = ft_strjoin(val, s);
 		lexer_advance(lexer);
 	}
@@ -105,7 +107,7 @@ t_token	*lexer_collect_string(t_lexer *lexer, char c)
 	return (init_token(T_WORD, val));
 }
 
-char	*join_string(t_lexer *lexer, char c)
+char *join_string(t_lexer *lexer, char c)
 {
 	char	*val;
 	char	*s;

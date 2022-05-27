@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:18:41 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:20:15 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/25 18:18:45 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../Includes/minishell.h"
 
 void	ft_signals()
 {

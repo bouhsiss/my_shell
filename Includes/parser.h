@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:01:25 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 12:32:27 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:44:54 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ t_token			**realloc_token(t_token **curr, t_token *token);
 void			parse(void);
 t_token			*err_quotes(char *val);
 
-<<<<<<< HEAD
-=======
 
 char *join_string(t_lexer *lexer, char c);
 char	*join_word(t_lexer *lexer);
@@ -112,5 +110,4 @@ t_token *free_retnull(char *val);
 void free_command(void);
 void free_redirections(t_redirection *rdr);
 void	free_all(void);
->>>>>>> a0d385c5c213a85b4acfdacf08249bb3eff09cd3
 #endif

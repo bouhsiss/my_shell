@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 19:35:50 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:51:52 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int main(int ac, char **av, char **env)
 	ac = 0;
 	env= 0;
 	av = 0;
-	g_mini.envlist = env_builder(env);
 	while (1)
 	{
 		free_all();
@@ -30,8 +29,7 @@ int main(int ac, char **av, char **env)
 		}
 		if (g_mini.line[0] == '\0')
 			continue ;
-		if (g_mini.line)
-			add_history(g_mini.line);
+		add_history(g_mini.line);	
 		parse();
 		system("leaks Minishell");
 		// implement_heredoc();
@@ -43,7 +41,7 @@ int main(int ac, char **av, char **env)
 
 // printing loop
 
-// 		t_parse *cmd_list=g_mini.command;
+// 		t_parse *cmd_list=mini.command;
 // 		int i = 0;
 // 		while(cmd_list)
 // 		{
