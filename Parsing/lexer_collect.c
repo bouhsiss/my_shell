@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer_collect.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 22:52:56 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/22 22:55:49 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/27 14:01:07 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 t_token	*lexer_collect_word(t_lexer *lexer)
 {
-	char *val;
-	char *s;
-	
+	char	*val;
+	char	*s;
+
 	val = ft_strdup("");
-	while(!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
+	while (!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
 	{
-		
 		if (lexer->c == '\'' || lexer->c == '\"')
 		{
 			s = join_string(lexer, lexer->c);
@@ -85,8 +84,7 @@ char	*after_quotes(t_lexer *lexer, char *val)
 		return (ft_strjoin(val, join_word(lexer)));
 }
 
-
-t_token *lexer_collect_string(t_lexer *lexer, char c)
+t_token	*lexer_collect_string(t_lexer *lexer, char c)
 {
 	char	*val;
 	char	*s;
@@ -101,7 +99,7 @@ t_token *lexer_collect_string(t_lexer *lexer, char c)
 			lexer_retreat(lexer);
 		}
 		else
-			s = lexer_get_current_char_as_string(lexer);			
+			s = lexer_get_current_char_as_string(lexer);
 		val = ft_strjoin(val, s);
 		lexer_advance(lexer);
 	}
@@ -113,7 +111,7 @@ t_token *lexer_collect_string(t_lexer *lexer, char c)
 	return (init_token(T_WORD, val));
 }
 
-char *join_string(t_lexer *lexer, char c)
+char	*join_string(t_lexer *lexer, char c)
 {
 	char	*val;
 	char	*s;
@@ -133,7 +131,7 @@ char *join_string(t_lexer *lexer, char c)
 		lexer_advance(lexer);
 	}
 	if (lexer->c != c)
-		mini.l_err = 1;
+		g_mini.l_err = 1;
 	lexer_advance(lexer);
 	if (!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
 		val = after_quotes(lexer, val);

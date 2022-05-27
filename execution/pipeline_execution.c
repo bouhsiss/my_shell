@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:47 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/25 13:24:19 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:21:02 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	checker(void)
 {
 	t_parse	*cmd_list;
 
-	cmd_list = mini.command;
+	cmd_list = g_mini.command;
 	while (cmd_list)
 	{
 		cmd_list->cmd = lowcase(cmd_list->cmd);
@@ -66,7 +66,7 @@ void	pipeline_execution(char **env)
 
 	fd_in = STDIN_FILENO;
 	checker();
-	cmd_list = mini.command;
+	cmd_list = g_mini.command;
 	while (cmd_list->next)
 	{
 		pipe(ends);

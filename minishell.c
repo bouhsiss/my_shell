@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/25 22:13:57 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:33:59 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@ int	main(int ac, char **av, char **env)
 {
 	ac = 0;
 	av = 0;
-	env = 0;
+	g_mini.envlist = env_builder(env);
 	while (1)
 	{
 		catch_signal();
-		mini.line = readline("MINISHELL 🥵:");
-		if (mini.line == NULL)
+		g_mini.line = readline("MINISHELL 🥵:");
+		if (g_mini.line == NULL)
 		{
 			ft_putstr_fd("exit\n", 1);
 			exit(0);
 		}
-		if (mini.line[0] == '\0')
+		if (g_mini.line[0] == '\0')
 			continue ;
-		if (mini.line)
-			add_history(mini.line);
+		if (g_mini.line)
+			add_history(g_mini.line);
 		parse();
 		implement_heredoc();
 		pipeline_execution(env);
@@ -39,7 +39,7 @@ int	main(int ac, char **av, char **env)
 
 // printing loop
 
-// 		t_parse *cmd_list=mini.command;
+// 		t_parse *cmd_list=g_mini.command;
 // 		int i = 0;
 // 		while(cmd_list)
 // 		{

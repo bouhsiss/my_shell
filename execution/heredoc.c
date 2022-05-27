@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:39 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/25 13:14:01 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/26 17:20:41 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	unlink_heredocs(void)
 	t_parse			*cmd_list;
 	t_redirection	*redr;
 
-	cmd_list = mini.command;
+	cmd_list = g_mini.command;
 	while (cmd_list)
 	{
 		redr = cmd_list->redirection;
@@ -68,7 +68,7 @@ void	implement_heredoc(void)
 	char			*filename;
 
 	filename = NULL;
-	cmd_list = mini.command;
+	cmd_list = g_mini.command;
 	while (cmd_list)
 	{
 		redr = cmd_list->redirection;

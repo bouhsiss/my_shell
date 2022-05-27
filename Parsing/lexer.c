@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:01:09 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/23 01:10:43 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/27 14:07:38 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,35 +15,40 @@
 t_token	*get_operator(t_lexer *lexer)
 {
 	if (lexer->c == '|')
-		return (lexer_advance_with_token(lexer, init_token(T_PIPE, lexer_get_current_char_as_string(lexer))));
+		return (lexer_advance_with_token(lexer,
+				init_token(T_PIPE, lexer_get_current_char_as_string(lexer))));
 	else if (lexer->c == '<')
 	{
-		if (lexer->contents[lexer->i + 1] == '<') 
+		if (lexer->contents[lexer->i + 1] == '<')
 		{
 			lexer_advance(lexer);
-			return (lexer_advance_with_token(lexer, init_token(T_HEREDOC, lexer_get_current_char_as_string(lexer))));
+			return (lexer_advance_with_token(lexer, init_token(T_HEREDOC,
+						lexer_get_current_char_as_string(lexer))));
 		}
-		return (lexer_advance_with_token(lexer, init_token(T_RDRIN, lexer_get_current_char_as_string(lexer))));
+		return (lexer_advance_with_token(lexer,
+				init_token(T_RDRIN, lexer_get_current_char_as_string(lexer))));
 	}
 	else if (lexer->c == '>')
 	{
 		if (lexer->contents[lexer->i + 1] == '>')
 		{
 			lexer_advance(lexer);
-			return (lexer_advance_with_token(lexer, init_token(T_APPEND, lexer_get_current_char_as_string(lexer))));
+			return (lexer_advance_with_token(lexer, init_token(T_APPEND,
+						lexer_get_current_char_as_string(lexer))));
 		}
-		return (lexer_advance_with_token(lexer, init_token(T_RDROUT, lexer_get_current_char_as_string(lexer))));
+		return (lexer_advance_with_token(lexer,
+				init_token(T_RDROUT, lexer_get_current_char_as_string(lexer))));
 	}
 	return (NULL);
 }
 
-void lexer_skip_whitespace(t_lexer *lexer)
+void	lexer_skip_whitespace(t_lexer *lexer)
 {
 	while (ft_isspace(lexer->c))
 		lexer_advance(lexer);
 }
 
-t_token *lexer_get_next_token(t_lexer *lexer)
+t_token	*lexer_get_next_token(t_lexer *lexer)
 {
 	while (lexer->c != '\0' && (int)lexer->i < ft_strlen(lexer->contents))
 	{
@@ -55,45 +60,42 @@ t_token *lexer_get_next_token(t_lexer *lexer)
 			return (lexer_collect_string(lexer, lexer->c));
 		if (lexer->c == '\'')
 			return (lexer_collect_string(lexer, lexer->c));
-		return get_operator(lexer);
+		return (get_operator(lexer));
 	}
 	return (NULL);
 }
 
-
 t_token	*lexer_advance_with_token(t_lexer *lexer, t_token *token)
 {
 	lexer_advance(lexer);
-
 	return (token);
 }
 
-char *lexer_get_current_char_as_string(t_lexer *lexer)
+char	*lexer_get_current_char_as_string(t_lexer *lexer)
 {
-	char *s;
+	char	*s;
 
 	s = malloc(sizeof(char) * 2);
 	s[0] = lexer->c;
 	s[1] = '\0';
-
-	return s;
+	return (s);
 }
 
-char *my_getenv(char *env)
+char	*my_getenv(char *env)
 {
 	return (getenv(env));
 }
 
-char *expandInQuotes(t_lexer *lexer)
+char	*expandInQuotes(t_lexer *lexer)
 {
 	char	*val;
 	char	*s;
-	
+
 	lexer_advance(lexer);
 	if (lexer->c == '\"' || lexer->c == ' ' || lexer->c == '$')
 		return (ft_strdup("$"));
 	val = ft_strdup("");
-	while (lexer->c != '\"' && lexer->c != ' ' && lexer->c != '\0' && lexer->c !='$' && lexer->c != '\'')
+	while (lexer->c != '\"' && lexer->c != ' ' && lexer->c != '\0' && lexer->c != '$' && lexer->c != '\'')
 	{
 		s = lexer_get_current_char_as_string(lexer);
 		val = ft_strjoin(val, s);
@@ -117,7 +119,7 @@ char	*expandCheck(t_lexer *lexer, char *s)
 	return (s);
 }
 
-char *expandInWord(t_lexer *lexer)
+char	*expandInWord(t_lexer *lexer)
 {
 	char	*val;
 	char	*s;
@@ -138,4 +140,4 @@ char *expandInWord(t_lexer *lexer)
 	free(val);
 	s = expandCheck(lexer, s);
 	return (s);
-}	
+}

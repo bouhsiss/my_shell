@@ -3,19 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   mini_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ziyad <ziyad@student.42.fr>                +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:36:49 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/12 00:42:32 by ziyad            ###   ########.fr       */
+/*   Updated: 2022/05/27 13:57:31 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int	ft_strlen(char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (0);
@@ -30,6 +29,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	char		*str;
 	int			i;
 	int			j;
+
 	if (!s1)
 		return (ft_strdup(s2));
 	if (!s2)
@@ -50,10 +50,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char *ft_strdup(char *s)
+char	*ft_strdup(char *s)
 {
-	char *p;
-	int i;
+	char	*p;
+	int		i;
 
 	i = 0;
 	while (s[i])
@@ -71,9 +71,9 @@ char *ft_strdup(char *s)
 	return (p);
 }
 
-void ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])

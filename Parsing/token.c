@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   token.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:16:30 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/23 01:11:03 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/27 12:33:56 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token *init_token(int type, char *value)
+t_token	*init_token(int type, char *value)
 {
-	t_token *token;
+	t_token	*token;
 
-	token = malloc(sizeof(struct s_token));
+	token = malloc(sizeof (struct s_token));
 	token->type = type;
 	token->value = value;
-
 	return (token);
 }
 
@@ -36,21 +35,21 @@ int	token_array_l(t_token **token)
 	return (i);
 }
 
-t_token **realloc_token(t_token **curr, t_token *token)
+t_token	**realloc_token(t_token **curr, t_token *token)
 {
-	t_token **new_token;
-	int i;
-	int l;
+	t_token	**new_token;
+	int		i;
+	int		l;
 
 	l = token_array_l(curr);
 	i = 0;
-	new_token = (t_token **)malloc(sizeof(t_token *) * (l + 2));
+	new_token = (t_token **)malloc(sizeof (t_token *) * (l + 2));
 	while (i < l)
 	{
 		new_token[i] = (curr[i]);
 		i++;
 	}
-	free(curr);
+	free (curr);
 	new_token[i++] = token;
 	new_token[i] = NULL;
 	return (new_token);

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 02:03:13 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/12 12:52:01 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 12:41:29 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	array_len(char **array)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (array)
@@ -23,19 +23,19 @@ int	array_len(char **array)
 			i++;
 	}
 	return (i);
-} 
+}
 
-char **realloc_args_array(char **curr, char *arg)
+char	**realloc_args_array(char **curr, char *arg)
 {
-	char **new_args;
-	int i;
-	int l;
+	char	**new_args;
+	int		i;
+	int		l;
 
 	if (arg[0] == ' ' && arg[1] == '\0')
 		return (curr);
 	l = array_len(curr);
 	i = 0;
-	new_args = (char **)malloc(sizeof(char *) * (l + 2));
+	new_args = (char **)malloc(sizeof (char *) * (l + 2));
 	while (i < l)
 	{
 		new_args[i] = (curr[i]);
@@ -49,22 +49,22 @@ char **realloc_args_array(char **curr, char *arg)
 
 t_parse	*init_commands(void)
 {
-	t_parse *cmd;
-	
+	t_parse	*cmd;
+
 	cmd = (t_parse *)malloc(sizeof(t_parse));
 	cmd->cmd = NULL;
 	cmd->args = NULL;
 	cmd->argsc = 0;
 	cmd->redirection = NULL;
 	cmd->next = NULL;
-	mini.command = cmd;
+	g_mini.command = cmd;
 	return (cmd);
 }
 
-t_parse *add_command(void)
+t_parse	*add_command(void)
 {
-	t_parse *new;
-	
+	t_parse	*new;
+
 	new = (t_parse *)malloc(sizeof(t_parse));
 	new->cmd = NULL;
 	new->args = NULL;
@@ -74,8 +74,7 @@ t_parse *add_command(void)
 	return (new);
 }
 
-
-void factory(t_token **token, t_parse *command, int i)
+void	factory(t_token **token, t_parse *command, int i)
 {
 	if (token[i]->type == T_WORD)
 	{
@@ -83,12 +82,14 @@ void factory(t_token **token, t_parse *command, int i)
 			command->cmd = ft_strdup(token[i]->value);
 		command->args = realloc_args_array(command->args, token[i]->value);
 	}
-	else if (token[i]->type == T_RDRIN || token[i]->type == T_RDROUT 
-			|| token[i]->type == T_APPEND || token[i]->type == T_HEREDOC)
+	else if (token[i]->type == T_RDRIN || token[i]->type == T_RDROUT
+		|| token[i]->type == T_APPEND || token[i]->type == T_HEREDOC)
 	{
 		if (command->redirection == NULL)
-			command->redirection = init_redirection(token[i + 1]->value, token[i]->type);
+			command->redirection = init_redirection(token[i + 1]->value,
+					token[i]->type);
 		else
-			add_redirecion(command->redirection, token[i + 1]->value, token[i]->type);
+			add_redirecion(command->redirection, token[i + 1]->value,
+				token[i]->type);
 	}
 }

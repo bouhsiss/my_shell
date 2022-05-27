@@ -1,36 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cd_builtin.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/27 12:04:45 by hbouhsis          #+#    #+#             */
+/*   Updated: 2022/05/27 19:14:33 by hbouhsis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
-char *env_value(char **env, char *value)
+void	cd_home(t_envlist *env)
 {
-	int i;
-	char **temp;
+	char	*home_path;
 
-	i  = 0;
-	while(env[i])
-	{
-		if (ft_strncmp(env[i], value, ft_strlen(value))==0)
-		{
-			temp = ft_split(env[i], '=');
-			return(temp[1]);
-		}
-		i++;
-	}
-	return(NULL);
-}
-
-void cd_home(char **env)
-{
-	char *home_path;
-
-	home_path = env_value(env, "HOME=");
+	home_path = env_value(&env, "HOME=");
 	chdir(home_path);
 }
 
-int cd_builtin(char **args,char **env)
+int	cd_builtin(char **args, t_envlist *env)
 {
 	if (!args[1])
 		cd_home(env);
 	else
 		chdir(args[1]);
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

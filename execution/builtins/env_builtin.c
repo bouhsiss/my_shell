@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   env_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 18:18:41 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:20:15 by hbouhsis         ###   ########.fr       */
+/*   Created: 2022/05/27 12:05:58 by hbouhsis          #+#    #+#             */
+/*   Updated: 2022/05/27 14:44:35 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include"minishell.h"
 
-void	ft_signals()
+int	env_builtin(void)
 {
-	printf("\n");
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	rl_redisplay();
-}
+	t_envlist	*env;
 
-void	catch_signal(void)
-{
-	signal(SIGINT, ft_signals);
-	signal(SIGQUIT, SIG_IGN);
+	env = g_mini.envlist;
+	while (env)
+	{
+		ft_putstr_fd(env->key, 1);
+		ft_putchar_fd(env->sep, 1);
+		if(env->value)
+			ft_putendl_fd(env->value, 1);
+		env = env->next;
+	}
+	return (EXIT_SUCCESS);
 }
