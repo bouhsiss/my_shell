@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/09 02:03:13 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 12:41:29 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:37:55 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,33 @@ void	factory(t_token **token, t_parse *command, int i)
 		else
 			add_redirecion(command->redirection, token[i + 1]->value,
 				token[i]->type);
+	}
+}
+
+void free_command(void)
+{
+	t_parse *current;
+	t_parse	*tmp;
+	int i;
+	
+	if (g_mini.command == NULL)
+		return ;
+	current = g_mini.command;
+	while (current)
+	{
+		if (current->cmd)
+			free(current->cmd);
+		i = 0;
+		while (current->args[i] && current->args)
+		{
+			free(current->args[i]);
+			i++;
+		}
+		if (current->args)
+			free(current->args);
+		free_redirections(current->redirection);
+		tmp = current;
+		current = current->next;
+		free(tmp);
 	}
 }

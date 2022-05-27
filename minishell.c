@@ -6,24 +6,26 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 19:33:59 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:35:50 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int ac, char **av, char **env)
+int main(int ac, char **av, char **env)
 {
 	ac = 0;
+	env= 0;
 	av = 0;
 	g_mini.envlist = env_builder(env);
 	while (1)
 	{
+		free_all();
 		catch_signal();
 		g_mini.line = readline("MINISHELL 🥵:");
 		if (g_mini.line == NULL)
 		{
-			ft_putstr_fd("exit\n", 1);
+			printf("exit\n");
 			exit(0);
 		}
 		if (g_mini.line[0] == '\0')
@@ -31,11 +33,13 @@ int	main(int ac, char **av, char **env)
 		if (g_mini.line)
 			add_history(g_mini.line);
 		parse();
-		implement_heredoc();
-		pipeline_execution(env);
-		unlink_heredocs();
+		system("leaks Minishell");
+		// implement_heredoc();
+		// pipeline_execution(env);
+		// unlink_heredocs();
 	}
 }
+
 
 // printing loop
 

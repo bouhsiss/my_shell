@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:42:01 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 12:36:35 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:36:52 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,12 @@ void	parse(void)
 		token = realloc_token(token, lexer_get_next_token(lexer));
 	}
 	if (!syntax(token))
-	{
 		throw_syntax(1);
 		error = 0;
 	}
 	else if (g_mini.l_err == 1)
 	{
 		throw_syntax(2);
-		error = 0;
-	}
 	else
 		create_command(token);
 	free_token(token);

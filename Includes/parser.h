@@ -80,4 +80,37 @@ t_token			**realloc_token(t_token **curr, t_token *token);
 void			parse(void);
 t_token			*err_quotes(char *val);
 
+<<<<<<< HEAD
+=======
+
+char *join_string(t_lexer *lexer, char c);
+char	*join_word(t_lexer *lexer);
+char	*after_quotes(t_lexer *lexer, char *val);
+
+char *expandInWord(t_lexer *lexer);
+char *expandInQuotes(t_lexer *lexer);
+
+void lexer_retreat(t_lexer *lexer);
+
+char *my_getenv(char *env);
+
+char	*expandCheck(t_lexer *lexer, char *s);
+
+
+void	add_redirecion(t_redirection *head, char *val, t_type type);
+
+t_redirection *init_redirection(char *val, t_type type);
+
+t_parse	*init_commands(void);
+t_parse *add_command(void);
+void factory(t_token **token, t_parse *command, int i);
+void create_command(t_token **token);
+t_token **realloc_token(t_token **curr, t_token *token);
+void parse(void);
+t_token *err_quotes(char *val);
+t_token *free_retnull(char *val);
+void free_command(void);
+void free_redirections(t_redirection *rdr);
+void	free_all(void);
+>>>>>>> a0d385c5c213a85b4acfdacf08249bb3eff09cd3
 #endif

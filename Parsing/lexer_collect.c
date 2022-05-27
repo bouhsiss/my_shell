@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 22:52:56 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 14:01:07 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/27 19:36:19 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ t_token	*lexer_collect_word(t_lexer *lexer)
 		lexer_advance(lexer);
 	}
 	if (val[0] == '\0')
-	{
-		free(val);
-		return (NULL);
-	}
+		return (free_retnull(val));
 	return (init_token(T_WORD, val));
 }
 
@@ -69,10 +66,7 @@ char	*join_word(t_lexer *lexer)
 		lexer_advance(lexer);
 	}
 	if (val[0] == '\0')
-	{
-		free(val);
-		return (NULL);
-	}
+		return ((char *)free_retnull(val));
 	return (val);
 }
 
