@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:04:45 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/27 19:14:33 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 11:43:35 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,11 @@ void	cd_home(t_envlist *env)
 	char	*home_path;
 
 	home_path = env_value(&env, "HOME=");
+	if (!home_path)
+	{
+		error_message("cd", "HOME not set");
+		exit(1);
+	}
 	chdir(home_path);
 }
 

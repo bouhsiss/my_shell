@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:06:09 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/27 19:33:05 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 12:28:01 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int check_key(char *arg, char *key)
 	i = 0;
 	if (char_isdigit(key) == 0 || (key[0] >= '0' && key[0] <= '9'))
 	{
-		error_message("export", ft_strjoin("not an identifier", key));
-		exit(1);
+		error_message(key, "not a valid identifier");
+		return(0);
 	}
 	while(arg[i])
 	{
