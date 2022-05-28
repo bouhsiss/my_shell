@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:39 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/26 17:20:41 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 16:44:26 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	name_generator(char **filename)
 	if (rand < 0)
 		rand *= -1;
 	rand = rand / 1000000;
-	*filename = ft_strjoin("/tmp/tmp", ft_itoa(rand));
+	*filename = ft_strjoin2("/tmp/tmp", ft_itoa(rand));
 }
 
 void	open_heredoc_file(char *delimiter, char **filename)

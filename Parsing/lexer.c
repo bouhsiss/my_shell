@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:01:09 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/23 01:10:43 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/28 16:43:46 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,33 @@ char *lexer_get_current_char_as_string(t_lexer *lexer)
 	return s;
 }
 
-char *my_getenv(char *env)
+t_envlist *our_getenv(char *key)
 {
-	return (getenv(env));
+    t_envlist *current;
+    if (!key)
+        return NULL;
+    current = g_mini.envlist;
+    while (current->next != NULL)
+    {
+        if (ft_strcmp(current->key, key) == 0)
+            return current;
+        current = current->next;
+    }
+    if (ft_strcmp(current->key, key) == 0)
+        return current;
+    return NULL;
+}
+
+char *my_getenv(char *key)
+{
+    t_envlist *new;
+
+    new = our_getenv(key);
+    if (new != NULL)
+        return (ft_strdup(new->value));
+    else
+        return (ft_strdup(""));
+    // return (getenv(key));
 }
 
 char *expandInQuotes(t_lexer *lexer)

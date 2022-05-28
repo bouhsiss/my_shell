@@ -6,13 +6,13 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:47 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/26 17:21:02 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 17:35:07 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends, char **env)
+void	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends,t_envlist **envlist)
 {
 	pid_t	id;
 
@@ -24,7 +24,7 @@ void	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends, char **env)
 		if (ends[WRITE_END] > 2)
 			close(ends[WRITE_END]);
 		redirection_helper(cmd_list);
-		execute_cmd(cmd_list, env);
+		execute_cmd(cmd_list, envlist);
 	}
 	if (fd_in != STDIN_FILENO)
 		close(fd_in);
@@ -57,7 +57,7 @@ void	parent_process(void)
 		;
 }
 
-void	pipeline_execution(char **env)
+void	pipeline_execution(t_envlist **envlist)
 {
 	int		ends[2];
 	pid_t	id;
@@ -75,12 +75,12 @@ void	pipeline_execution(char **env)
 		{
 			dup_ends(ends, fd_in);
 			redirection_helper(cmd_list);
-			execute_cmd(cmd_list, env);
+			execute_cmd(cmd_list, envlist);
 		}
 		close_ends(ends, fd_in);
 		fd_in = ends[READ_END];
 		cmd_list = cmd_list->next;
 	}
-	exec_last_cmd(cmd_list, fd_in, ends, env);
+	exec_last_cmd(cmd_list, fd_in, ends, envlist);
 	parent_process();
 }
