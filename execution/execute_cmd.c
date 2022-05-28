@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:22 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 17:33:47 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 20:31:54 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,38 @@ char **envlist_to_envarr(t_envlist **envlist)
 	return(arr);
 }
 
+int builtincheck(char *cmd)
+{
+	char *builtins[7] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+	int i;
+	
+	i = 0;
+	while(i<7)
+	{
+		if (strcmp(cmd, builtins[i]) == 0)
+			return(1);
+		i++;
+	}
+	return(0);
+}
+
+int executebuiltin(t_parse *cmd_list, t_envlist **envlist)
+{
+	if (ft_strcmp("echo", cmd_list->cmd))
+		return(echo_builtin(cmd_list->args));
+	if (ft_strcmp("cd", cmd_list->cmd))
+		return(cd_builtin(cmd_list->args, (*envlist)));
+	if (ft_strcmp("pwd", cmd_list->cmd))
+		return(pwd_builtin());
+	if(ft_strcmp("export", cmd_list->cmd))
+		return(export_builtin(cmd_list));
+	if (ft_strcmp("unset", cmd_list->cmd))
+		return(unset_builtin(cmd_list));
+	if (ft_strcmp("env", cmd_list->cmd))
+		return(env_builtin());
+	return(88);
+}
+
 void	execute_cmd(t_parse *cmd_list,t_envlist **envlist)
 {
 	char	*path;
@@ -77,9 +109,14 @@ void	execute_cmd(t_parse *cmd_list,t_envlist **envlist)
 	envp = envlist_to_envarr(envlist);
 	if (cmd_list->cmd)
 	{
+		if (builtincheck(cmd_list->cmd))
+			executebuiltin(cmd_list, envlist);
+		else
+		{
 		path = ft_paths(env_value(envlist, "PATH"), cmd_list->cmd);
 		if (execve(path, cmd_list->args, envp) == -1)
 			exit(127);
+		}
 	}
 	exit(99);
 }

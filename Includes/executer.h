@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 18:50:27 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 20:28:20 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,15 @@ int			char_isdigit(char *str);
 void 		error_message(char *cmd, char *message);
 void		envlist_addback(t_envlist **env, t_envlist *new);
 t_envlist	*envlist_new(char *key, char *value);
-char **envlist_to_envarr(t_envlist **envlist);
-char *join_3_strings(char *s1, char *s2, char *s3);
-int unset_builtin(t_parse *cmd_list);
+char		**envlist_to_envarr(t_envlist **envlist);
+char		*join_3_strings(char *s1, char *s2, char *s3);
 //===== builtins  =====
 int			echo_builtin(char **args);
 int			cd_builtin(char **args, t_envlist *env);
 int			pwd_builtin(void);
 int			env_builtin(void);
 int 		export_builtin(t_parse *cmd_list);
+int			unset_builtin(t_parse *cmd_list);
 
 
 #endif
