@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 17:34:43 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 18:50:27 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void		envlist_addback(t_envlist **env, t_envlist *new);
 t_envlist	*envlist_new(char *key, char *value);
 char **envlist_to_envarr(t_envlist **envlist);
 char *join_3_strings(char *s1, char *s2, char *s3);
+int unset_builtin(t_parse *cmd_list);
 //===== builtins  =====
 int			echo_builtin(char **args);
 int			cd_builtin(char **args, t_envlist *env);

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:44 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 16:54:45 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/28 18:31:51 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ t_envlist	*env_builder(char **env)
 	char		**temp;
 
 	i = 0;
-	g_mini.envlist = NULL;
 	envlist = g_mini.envlist;
 	while (env[i])
 	{
