@@ -30,18 +30,17 @@ static char	*ft_strcpy(char	*dest, char	*src)
 	return (dest);
 }
 
-
-char *join_3_strings(char *s1, char *s2, char *s3)
+char	*join_3_strings(char *s1, char *s2, char *s3)
 {
-	int total;
-	char *str;
+	int		total;
+	char	*str;
 
 	total = ft_strlen(s1) + ft_strlen(s2) + ft_strlen(s3);
-	str = malloc((total+1) * sizeof(char));
+	str = malloc((total + 1) * sizeof(char));
 	if (!str)
-		return(NULL);
+		return (NULL);
 	ft_strcpy(str, s1);
 	ft_strcat(str, s2);
 	ft_strcat(str, s3);
-	return(str);
+	return (str);
 }

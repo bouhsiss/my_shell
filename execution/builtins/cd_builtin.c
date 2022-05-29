@@ -6,23 +6,24 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:04:45 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 20:25:27 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:55:18 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	cd_home(t_envlist *env)
+int	cd_home(t_envlist *env)
 {
 	char	*home_path;
 
-	home_path = env_value(&env, "HOME=");
+	home_path = env_value(&env, "HOME");
 	if (!home_path)
 	{
 		error_message("cd", "HOME not set");
 		exit(1);
 	}
 	chdir(home_path);
+	return (EXIT_SUCCESS);
 }
 
 int	cd_builtin(char **args, t_envlist *env)

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:44 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 18:31:51 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:07:21 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 char	*env_value(t_envlist **envlist, char *key)
 {
-	int		i;
-	t_envlist *env;
+	int			i;
+	t_envlist	*env;
 
 	i = 0;
 	env = (*envlist);
 	while (env)
 	{
 		if (ft_strncmp(env->key, key, ft_strlen(key)) == 0)
-			return(env->value);
+			return (env->value);
 		i++;
 		env = env->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 20:28:20 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 16:23:17 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_envlist
 	struct s_envlist	*next;
 }		t_envlist;
 
-char	*ft_strjoin2(char *s1, char *s2);
+char		*ft_strjoin2(char *s1, char *s2);
 void		pipeline_execution(t_envlist **envlist);
 int			ft_strncmp(char *s1, char *s2, size_t n);
 char		**ft_split(char const *s, char c);
@@ -50,7 +50,7 @@ void		redirection_helper(t_parse *cmd_list);
 void		dupfd2fd(int fd, int othe_fd);
 void		dup_ends(int *ends, int fd_in);
 char		*lowcase(char *str);
-void		execute_cmd(t_parse *cmd_list,t_envlist **envlist);
+int			execute_cmd(t_parse *cmd_list,t_envlist **envlist);
 void		close_ends(int *ends, int fd_in);
 char		*env_value(t_envlist **env, char *key);
 t_envlist	*env_builder(char **env);
@@ -62,6 +62,9 @@ void		envlist_addback(t_envlist **env, t_envlist *new);
 t_envlist	*envlist_new(char *key, char *value);
 char		**envlist_to_envarr(t_envlist **envlist);
 char		*join_3_strings(char *s1, char *s2, char *s3);
+int			executebuiltin(t_parse *cmd_list, t_envlist **envlist);
+int			launch_child(int fd_in, int *ends, t_parse *cmd_list, t_envlist **env);
+int			builtincheck(char *cmd);
 //===== builtins  =====
 int			echo_builtin(char **args);
 int			cd_builtin(char **args, t_envlist *env);

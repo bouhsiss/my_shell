@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:08:27 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/27 18:27:18 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:02:54 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,13 @@ void	free_array(char **arr)
 
 int	char_isdigit(char *str)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	
-	while(str[i])
+	while (str[i])
 	{
-		if(!(str[i] >= '0' && str[i] <= '9'))
-			return(1);
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return (1);
 		i++;
 	}
 	return (0);

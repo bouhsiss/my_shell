@@ -6,64 +6,63 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:06:09 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 18:31:12 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 15:06:11 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void export_without_args(t_envlist *env)
+void	export_without_args(t_envlist *env)
 {
-	while(env)
+	while (env)
 	{
 		if (!env->value)
-			printf("declare -x %s%c\n", env->key, env->sep);
+			printf("declare -x %s%c\"\"\n", env->key, env->sep);
 		else
-			printf("declare -x %s%c%s\n", env->key, env->sep, env->value);
+			printf("declare -x %s%c\"%s\"\n", env->key, env->sep, env->value);
 		env = env->next;
 	}
 }
 
-
-int check_key(char *arg, char *key)
+int	check_key(char *arg, char *key)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (char_isdigit(key) == 0 || (key[0] >= '0' && key[0] <= '9'))
 	{
 		error_message(key, "not a valid identifier");
-		return(0);
+		return (0);
 	}
-	while(arg[i])
+	while (arg[i])
 	{
 		if (arg[i] == '=')
-			return(1);
+			return (1);
 		i++;
 	}
-	return(0);
+	return (0);
 }
 
-int check_if_key_exist(t_envlist **env, char *key)
+int	check_if_key_exist(t_envlist **env, char *key)
 {
-	t_envlist *env_temp;
-	
+	t_envlist	*env_temp;
+
 	env_temp = (*env);
-	while(env_temp)
+	while (env_temp)
 	{
-		if(ft_strcmp(env_temp->key, key) == 0)
-			return(1);
+		if (ft_strcmp(env_temp->key, key) == 0)
+			return (1);
 		env_temp = env_temp->next;
 	}
-	return(0);
+	return (0);
 }
 
-void replace_value(t_envlist **env, char *key, char *value)
+void	replace_value(t_envlist **env, char *key, char *value)
 {
-	t_envlist *env_temp;
+	t_envlist	*env_temp;
 
 	env_temp = (*env);
-	while(env_temp)
+	while (env_temp)
 	{
 		if (strcmp(key, env_temp->key) == 0)
 		{
@@ -74,19 +73,19 @@ void replace_value(t_envlist **env, char *key, char *value)
 	}
 }
 
-void export_with_args(t_envlist *env, char **args)
+void	export_with_args(t_envlist *env, char **args)
 {
 	int		i;
-	char **temp;
-	
+	char	**temp;
+
 	i = 1;
 	temp = NULL;
-	while(args[i])
+	while (args[i])
 	{
 		temp = ft_split(args[i], '=');
 		if (check_key(args[i], temp[0]))
 		{
-			if(check_if_key_exist(&env, temp[0]))
+			if (check_if_key_exist(&env, temp[0]))
 				replace_value(&env, temp[0], temp[1]);
 			else
 				envlist_addback(&g_mini.envlist, envlist_new(temp[0], temp[1]));
@@ -95,9 +94,9 @@ void export_with_args(t_envlist *env, char **args)
 	}
 }
 
-int export_builtin(t_parse *cmd_list)
+int	export_builtin(t_parse *cmd_list)
 {
-	t_envlist *env;
+	t_envlist	*env;
 
 	env = g_mini.envlist;
 	if (cmd_list->args[1] == NULL)

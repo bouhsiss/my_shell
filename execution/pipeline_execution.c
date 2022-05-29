@@ -6,28 +6,37 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:47 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 17:35:07 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 17:50:27 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-void	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends,t_envlist **envlist)
+int	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends, t_envlist **env)
 {
 	pid_t	id;
 
+	if (fd_in == 0)
+	{
+		if(builtincheck(cmd_list->cmd))
+			return(executebuiltin(cmd_list, env));
+	}
 	id = fork();
 	if (id == 0)
 	{
 		if (fd_in != STDIN_FILENO)
 			dupfd2fd(fd_in, STDIN_FILENO);
 		if (ends[WRITE_END] > 2)
-			close(ends[WRITE_END]);
+			close(ends[WRITE_END]); 
 		redirection_helper(cmd_list);
-		execute_cmd(cmd_list, envlist);
+		if (builtincheck(cmd_list->cmd))
+			exit(executebuiltin(cmd_list, env));
+		else
+			execute_cmd(cmd_list, env);
 	}
 	if (fd_in != STDIN_FILENO)
 		close(fd_in);
+	return(0);
 }
 
 void	checker(void)
@@ -60,7 +69,6 @@ void	parent_process(void)
 void	pipeline_execution(t_envlist **envlist)
 {
 	int		ends[2];
-	pid_t	id;
 	t_parse	*cmd_list;
 	int		fd_in;
 
@@ -70,13 +78,7 @@ void	pipeline_execution(t_envlist **envlist)
 	while (cmd_list->next)
 	{
 		pipe(ends);
-		id = fork();
-		if (id == 0)
-		{
-			dup_ends(ends, fd_in);
-			redirection_helper(cmd_list);
-			execute_cmd(cmd_list, envlist);
-		}
+		launch_child(fd_in, ends, cmd_list, envlist);
 		close_ends(ends, fd_in);
 		fd_in = ends[READ_END];
 		cmd_list = cmd_list->next;

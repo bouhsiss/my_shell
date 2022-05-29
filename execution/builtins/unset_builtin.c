@@ -1,22 +1,22 @@
 #include"minishell.h"
 
-int check_key_unset(char *key)
+int	check_key_unset(char *key)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (char_isdigit(key) == 0 || (key[0] >= '0' && key[0] <= '9'))
 	{
 		error_message(key, "not a valid identifier");
-		return(0);
+		return (0);
 	}
-	return(1);
+	return (1);
 }
 
-void delete_envvar(t_envlist **envlist, char *key)
+void	delete_envvar(t_envlist **envlist, char *key)
 {
-	t_envlist *temp;
-	t_envlist *prev;
+	t_envlist	*temp;
+	t_envlist	*prev;
 
 	temp = (*envlist);
 	if (temp && (ft_strcmp(temp->key, key) == 0))
@@ -25,29 +25,29 @@ void delete_envvar(t_envlist **envlist, char *key)
 		free(temp);
 		return ;
 	}
-	while(temp && ft_strcmp(temp->key, key))
+	while (temp && ft_strcmp(temp->key, key))
 	{
 		prev = temp;
 		temp = temp->next;
 	}
 	if (temp == NULL)
-		return;
+		return ;
 	prev->next = temp->next;
 	free(temp);
 }
 
-int unset_builtin(t_parse *cmd_list)
+int	unset_builtin(t_parse *cmd_list)
 {
-	t_envlist *env;
-	int i;
+	t_envlist	*env;
+	int			i;
 
 	i = 1;
 	env = g_mini.envlist;
-	while(cmd_list->args[i])
+	while (cmd_list->args[i])
 	{
 		if (check_key_unset(cmd_list->args[i]))
 			delete_envvar(&env, cmd_list->args[i]);
 		i++;
 	}
-	return(EXIT_SUCCESS);
+	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/28 18:50:35 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 17:52:41 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,19 +31,10 @@ int main(int ac, char **av, char **env)
 			continue ;
 		add_history(g_mini.line);	
 		parse();
-		t_parse *cmd_list = g_mini.command;
-		if (ft_strcmp(cmd_list->cmd, "export") ==0 )
-			export_builtin(cmd_list);
-		else if (ft_strcmp(cmd_list->cmd, "env") == 0)
-			env_builtin();
-		else if (ft_strcmp(cmd_list->cmd, "unset") == 0)
-			unset_builtin(cmd_list);
-		else
-		{
-		implement_heredoc();
-		pipeline_execution(&g_mini.envlist);
-		unlink_heredocs();
-		}
+		system("leaks Minishell");
+		// implement_heredoc();
+		// pipeline_execution(&g_mini.envlist);
+		// unlink_heredocs();
 	}
 }
 
