@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/29 17:52:41 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 22:30:46 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int main(int ac, char **av, char **env)
 			continue ;
 		add_history(g_mini.line);	
 		parse();
+		implement_heredoc();
+		pipeline_execution(&g_mini.envlist);
+		unlink_heredocs();
 		system("leaks Minishell");
-		// implement_heredoc();
-		// pipeline_execution(&g_mini.envlist);
-		// unlink_heredocs();
 	}
 }
 

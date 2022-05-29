@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:44 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/29 15:07:21 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 22:27:00 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ t_envlist	*env_builder(char **env)
 		key = temp[0];
 		value = temp[1];
 		envlist_addback(&envlist, envlist_new(key, value));
+		free(temp);
 		i++;
 	}
 	return (envlist);

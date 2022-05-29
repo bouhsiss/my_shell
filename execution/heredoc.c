@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:39 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 16:44:26 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/29 22:35:28 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,16 @@ void	name_generator(char **filename)
 {
 	int	fd;
 	int	rand;
+	char *rand_char;
 
 	fd = open("/dev/random", O_RDONLY);
 	read(fd, &rand, sizeof (rand));
 	if (rand < 0)
 		rand *= -1;
 	rand = rand / 1000000;
-	*filename = ft_strjoin2("/tmp/tmp", ft_itoa(rand));
+	rand_char = ft_itoa(rand);
+	*filename = ft_strjoin2("/tmp/tmp", rand_char);
+	free(rand_char);
 }
 
 void	open_heredoc_file(char *delimiter, char **filename)
@@ -38,6 +41,8 @@ void	open_heredoc_file(char *delimiter, char **filename)
 		if (!(ft_strcmp(rl, delimiter)))
 			break ;
 		ft_putendl_fd(rl, temp);
+		if(rl)
+			free(rl);
 	}
 	close(temp);
 }
@@ -78,6 +83,7 @@ void	implement_heredoc(void)
 			{
 				open_heredoc_file(redr->file, &filename);
 				redr->file = ft_strdup(filename);
+				free(filename);
 			}
 			redr = redr->next;
 		}
