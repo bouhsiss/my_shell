@@ -6,20 +6,19 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 15:16:30 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/26 11:20:50 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:11:02 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_token *init_token(int type, char *value)
+t_token	*init_tok(int type, char *value)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = malloc(sizeof(struct s_token));
 	token->type = type;
 	token->value = value;
-
 	return (token);
 }
 
@@ -36,11 +35,11 @@ int	token_array_l(t_token **token)
 	return (i);
 }
 
-t_token **realloc_token(t_token **curr, t_token *token)
+t_token	**realloc_token(t_token **curr, t_token *token)
 {
-	t_token **new_token;
-	int i;
-	int l;
+	t_token		**new_token;
+	int			l;
+	int			i;
 
 	l = token_array_l(curr);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:37:11 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 12:29:31 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:25:20 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_minishell
 	char		*line;
 	int			l_err;
 	t_envlist	*envlist;
+	int			exit_code;
 }	t_mini;
 
 t_mini	g_mini;

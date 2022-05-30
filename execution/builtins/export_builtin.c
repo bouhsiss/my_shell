@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:06:09 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/29 15:06:11 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:29:28 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	export_without_args(t_envlist *env)
 			printf("declare -x %s%c\"%s\"\n", env->key, env->sep, env->value);
 		env = env->next;
 	}
+	g_mini.exit_code = 0;
 }
 
 int	check_key(char *arg, char *key)
@@ -32,6 +33,7 @@ int	check_key(char *arg, char *key)
 	if (char_isdigit(key) == 0 || (key[0] >= '0' && key[0] <= '9'))
 	{
 		error_message(key, "not a valid identifier");
+		g_mini.exit_code = 1;
 		return (0);
 	}
 	while (arg[i])
@@ -40,6 +42,7 @@ int	check_key(char *arg, char *key)
 			return (1);
 		i++;
 	}
+	g_mini.exit_code = 0;
 	return (0);
 }
 
@@ -103,5 +106,5 @@ int	export_builtin(t_parse *cmd_list)
 		export_without_args(env);
 	else
 		export_with_args(env, cmd_list->args);
-	return (EXIT_SUCCESS);
+	return (g_mini.exit_code);
 }

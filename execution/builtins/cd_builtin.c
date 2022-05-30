@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:04:45 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/29 15:55:18 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:31:54 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,29 @@ int	cd_home(t_envlist *env)
 	if (!home_path)
 	{
 		error_message("cd", "HOME not set");
-		exit(1);
+		g_mini.exit_code = 1;
+		return (g_mini.exit_code);
 	}
-	chdir(home_path);
-	return (EXIT_SUCCESS);
+	if (chdir(home_path) == 0)
+		g_mini.exit_code = 0;
+	else
+	{
+		error_message("cd", "");
+		g_mini.exit_code = 1;
+	}
+	return (g_mini.exit_code);
 }
 
 int	cd_builtin(char **args, t_envlist *env)
 {
 	if (!args[1])
-		cd_home(env);
+		g_mini.exit_code = cd_home(env);
+	else if (chdir(args[1]) == 0)
+		g_mini.exit_code = 0;
 	else
-		chdir(args[1]);
-	return (EXIT_SUCCESS);
+	{
+		error_message("cd", args[1]);
+		g_mini.exit_code = 1;
+	}
+	return (g_mini.exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:22 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/29 16:22:45 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:37:55 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	**envlist_to_envarr(t_envlist **envlist)
 
 	i = 0;
 	env = (*envlist);
-	arr = malloc(envlist_sz(envlist) * sizeof (char *));
+	arr = malloc((envlist_sz(envlist) + 1) * sizeof (char *));
 	while (env)
 	{
 		arr[i] = join_3_strings(env->key, "=", env->value);
@@ -64,26 +64,25 @@ char	**envlist_to_envarr(t_envlist **envlist)
 	return (arr);
 }
 
-
-int launch_child(int fd_in, int *ends, t_parse *cmd_list, t_envlist **env)
+int	launch_child(int fd_in, int *ends, t_parse *cmd_list, t_envlist **env)
 {
-	int id;
+	int	id;
 
 	id = fork();
 	if (id == 0)
 	{
+		signal(SIGQUIT, SIG_DFL);
 		dup_ends(ends, fd_in);
 		if (ends[WRITE_END] > 2)
 			close(ends[WRITE_END]);
 		redirection_helper(cmd_list);
-		if (builtincheck(cmd_list->cmd))
+		if (cmd_list->cmd && builtincheck(cmd_list->cmd))
 			exit(executebuiltin(cmd_list, env));
 		else
 			execute_cmd(cmd_list, env);
 	}
-	return(0);
+	return (0);
 }
-
 
 int	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
 {
@@ -93,9 +92,14 @@ int	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
 	envp = envlist_to_envarr(envlist);
 	if (cmd_list->cmd)
 	{
-			path = ft_paths(env_value(envlist, "PATH"), cmd_list->cmd);
-			if (execve(path, cmd_list->args, envp) == -1)
-				exit(127);
+		path = ft_paths(env_value(envlist, "PATH"), cmd_list->cmd);
+		if (execve(path, cmd_list->args, envp) == -1)
+		{
+			error_message(cmd_list->cmd, "");
+			g_mini.exit_code = 127;
+			exit(g_mini.exit_code);
+		}
 	}
-	return(99);
+	g_mini.exit_code = 0;
+	exit(g_mini.exit_code);
 }

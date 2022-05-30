@@ -6,16 +6,16 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:42:01 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/27 19:53:14 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:15:29 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void create_command(t_token **token)
+void	create_command(t_token **token)
 {
-	t_parse *command;
-	int i;
+	t_parse	*command;
+	int		i;
 
 	g_mini.command = init_commands();
 	i = 0;
@@ -23,7 +23,7 @@ void create_command(t_token **token)
 	while (token[i])
 	{
 		factory(token, command, i);
-		if (token[i]->type == T_RDRIN || token[i]->type == T_RDROUT 
+		if (token[i]->type == T_RDRIN || token[i]->type == T_RDROUT
 			|| token[i]->type == T_APPEND || token[i]->type == T_HEREDOC)
 			i++;
 		if (token[i]->type == T_PIPE)
@@ -33,21 +33,20 @@ void create_command(t_token **token)
 		}
 		i++;
 	}
-	
 }
 
 int	syntax(t_token **token)
 {
-	t_type before;
-	t_type curr;
-	int i;
+	t_type	before;
+	t_type	curr;
+	int		i;
 
 	i = 0;
 	before = -1;
 	while (token[i])
 	{
 		curr = token[i]->type;
-		if (before != T_WORD && i!= 0 && curr != T_WORD
+		if (before != T_WORD && i != 0 && curr != T_WORD
 			&& before != T_PIPE && curr != T_PIPE)
 			return (0);
 		if (i == 0 && curr == T_PIPE)
@@ -60,38 +59,30 @@ int	syntax(t_token **token)
 	return (1);
 }
 
-void throw_syntax(int err)
+int	throw_syntax(int err)
 {
 	if (err == 1)
 		ft_putstr_fd("BASH: syntax error!\n", 2);
 	if (err == 2)
 		ft_putstr_fd("BASH: Open Quotes!\n", 2);
+	return (0);
 }
 
-void	free_all(void)
+void	parse(void)
 {
-	if (g_mini.line)
-		free(g_mini.line);
-	free_command();
-	g_mini.line = NULL;
-	g_mini.command = NULL;
-}
+	t_lexer	*lexer;
+	t_token	**token;
+	int		i;
 
-void parse(void)
-{
-	t_lexer *lexer;
-	t_token **token;
-	int i;
-	
 	lexer = init_lexer(g_mini.line);
 	token = malloc(sizeof(struct s_token *) * 2);
 	i = 0;
-	token[0] = lexer_get_next_token(lexer);
+	token[0] = lex_next_tok(lexer);
 	token[1] = NULL;
 	while (token[i] != NULL)
 	{
 		i++;
-		token = realloc_token(token, lexer_get_next_token(lexer));
+		token = realloc_token(token, lex_next_tok(lexer));
 	}
 	if (!syntax(token))
 		throw_syntax(1);

@@ -6,13 +6,19 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/29 22:30:46 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:57:37 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int ac, char **av, char **env)
+void exit_shell(void)
+{
+	ft_putendl_fd("exit", STDERR_FILENO);
+	exit(g_mini.exit_code);
+}
+
+int	main(int ac, char **av, char **env)
 {
 	ac = 0;
 	av = 0;
@@ -21,20 +27,19 @@ int main(int ac, char **av, char **env)
 	{
 		free_all();
 		catch_signal();
-		g_mini.line = readline("MINISHELL 🥵:");
+		g_mini.line = readline("UnToutPetitShell👼 :");
 		if (g_mini.line == NULL)
-		{
-			printf("exit\n");
-			exit(0);
-		}
+			exit_shell();
 		if (g_mini.line[0] == '\0')
 			continue ;
-		add_history(g_mini.line);	
+		add_history(g_mini.line);
 		parse();
-		implement_heredoc();
-		pipeline_execution(&g_mini.envlist);
-		unlink_heredocs();
-		system("leaks Minishell");
+		if(g_mini.l_err == 0)
+		{
+			implement_heredoc();
+			pipeline_execution(&g_mini.envlist);
+			unlink_heredocs();
+		}
 	}
 }
 

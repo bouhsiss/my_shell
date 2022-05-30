@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd_builtin.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:06:15 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/27 12:06:16 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:28:55 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,14 @@ int	pwd_builtin(void)
 
 	buff = NULL;
 	pwd = getcwd(buff, 1024);
+	if (pwd == NULL)
+	{
+		error_message("pwd", "");
+		g_mini.exit_code = 1;
+		return (g_mini.exit_code);
+	}
 	ft_putendl_fd(pwd, 1);
 	free(pwd);
-	return (EXIT_SUCCESS);
+	g_mini.exit_code = 0;
+	return (g_mini.exit_code);
 }

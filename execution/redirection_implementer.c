@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:55 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/25 13:31:10 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:32:24 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,13 @@ void	redirection_helper(t_parse *cmd_list)
 			if (redr->type == IN_REDR || redr->type == HEREDOC_REDR)
 				fd_in = check_for_in_redr(redr, fd_in);
 			else if (redr->type == OUT_REDR || redr->type == APPEND_REDR)
-				if (fd_out != STDOUT_FILENO)
-					close(fd_out);
 				fd_out = check_for_out_redr(redr, fd_out);
+			if (fd_in < 0 || fd_out < 0)
+			{
+				error_message(redr->file, "");
+				g_mini.exit_code = EXIT_FAILURE;
+				exit(g_mini.exit_code);
+			}
 			redr = redr->next;
 		}
 		dup_redr(cmd_list, fd_in, fd_out);

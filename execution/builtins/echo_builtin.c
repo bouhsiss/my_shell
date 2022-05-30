@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:37 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/28 20:25:20 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 22:30:57 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ void	echo_with_option(char **args)
 		i++;
 	while (args[i])
 	{
-		ft_putstr_fd(args[i], 1);
+		ft_putstr_fd(args[i], STDOUT_FILENO);
 		i++;
 		if (args[i] != NULL)
-			ft_putstr_fd(" ", 1);
+			ft_putstr_fd(" ", STDOUT_FILENO);
 	}
 }
 
@@ -54,7 +54,11 @@ int	echo_builtin(char **args)
 
 	i = 1;
 	if (args[1] == NULL)
-		ft_putstr_fd("\n", 1);
+	{
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		g_mini.exit_code = 0;
+		return (g_mini.exit_code);
+	}
 	else
 	{
 		if (isoption(args[1]))
@@ -63,13 +67,14 @@ int	echo_builtin(char **args)
 		{
 			while (args[i])
 			{
-				ft_putstr_fd(args[i], 1);
+				ft_putstr_fd(args[i], STDOUT_FILENO);
 				i++;
 				if (args[i] != NULL)
-					ft_putstr_fd(" ", 1);
+					ft_putstr_fd(" ", STDOUT_FILENO);
 			}
-			ft_putstr_fd("\n", 1);
+			ft_putstr_fd("\n", STDOUT_FILENO);
 		}
 	}
-	return (EXIT_SUCCESS);
+	g_mini.exit_code = 0;
+	return (g_mini.exit_code);
 }

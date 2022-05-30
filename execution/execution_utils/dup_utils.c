@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:08:36 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/25 13:32:25 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 19:14:49 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ void	dup_ends(int *ends, int fd_in)
 	if (fd_in != STDIN_FILENO)
 		dupfd2fd(fd_in, STDIN_FILENO);
 	dupfd2fd(ends[WRITE_END], STDOUT_FILENO);
-	close(ends[READ_END]);
+	if (ends[READ_END] > 2)
+		close(ends[READ_END]);
 }
 
 void	close_ends(int *ends, int fd_in)

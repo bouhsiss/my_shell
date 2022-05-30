@@ -6,14 +6,15 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 18:18:41 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/25 18:18:45 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/30 16:00:18 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../Includes/minishell.h"
 
-void	ft_signals()
+void	ft_signals(int i)
 {
+	(void)i;
 	printf("\n");
 	rl_on_new_line();
 	rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:58 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/29 14:18:46 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:49:56 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,6 @@ int	env_builtin(void)
 			ft_putendl_fd(env->value, 1);
 		env = env->next;
 	}
-	return (EXIT_SUCCESS);
+	g_mini.exit_code = 0;
+	return (g_mini.exit_code);
 }

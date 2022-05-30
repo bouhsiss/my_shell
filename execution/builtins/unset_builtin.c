@@ -47,7 +47,13 @@ int	unset_builtin(t_parse *cmd_list)
 	{
 		if (check_key_unset(cmd_list->args[i]))
 			delete_envvar(&env, cmd_list->args[i]);
+		else
+		{
+			g_mini.exit_code = 1;
+			return (g_mini.exit_code);
+		}
 		i++;
 	}
-	return (EXIT_SUCCESS);
+	g_mini.exit_code = 0;
+	return (g_mini.exit_code);
 }

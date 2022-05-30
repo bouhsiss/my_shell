@@ -6,7 +6,7 @@
 #    By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/12 10:52:24 by zmeribaa          #+#    #+#              #
-#    Updated: 2022/05/28 12:09:40 by hbouhsis         ###   ########.fr        #
+#    Updated: 2022/05/30 22:21:50 by hbouhsis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME 	=	Minishell
 CC		= 	cc
 SRC		=	./Parsing/*.c minishell.c ./execution/*.c ./execution/execution_utils/*.c ./execution/builtins/*.c 
 LIB		= -I./Includes 
-FLAGS	= -Wall -Wextra -Werror -g -lreadline -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include 
+FLAGS	= -Wall -Wextra -Werror -fsanitize=address -g -lreadline -lreadline -L /Users/$(USER)/.brew/opt/readline/lib -I /Users/$(USER)/.brew/opt/readline/include 
 
 all : $(NAME)
 

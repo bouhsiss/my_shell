@@ -29,5 +29,7 @@ int	executebuiltin(t_parse *cmd_list, t_envlist **envlist)
 		return (unset_builtin(cmd_list));
 	if (!ft_strcmp("env", cmd_list->cmd))
 		return (env_builtin());
-	return (88);
+	if (!ft_strcmp("exit", cmd_list->cmd))
+		return (exit_builtin(cmd_list));
+	return (0);
 }

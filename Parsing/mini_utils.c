@@ -6,16 +6,15 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:36:49 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/26 10:40:39 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:07:05 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-
 int	ft_strlen(char *s)
 {
-	int i;
+	int	i;
 
 	if (!s)
 		return (0);
@@ -52,10 +51,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	free(s2);
 	return (str);
 }
-char *ft_strdup(char *s)
+
+char	*ft_strdup(char *s)
 {
-	char *p;
-	int i;
+	char	*p;
+	int		i;
 
 	i = 0;
 	while (s[i])
@@ -73,9 +73,9 @@ char *ft_strdup(char *s)
 	return (p);
 }
 
-void ft_putstr_fd(char *s, int fd)
+void	ft_putstr_fd(char *s, int fd)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (s[i])
