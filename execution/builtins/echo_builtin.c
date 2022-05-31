@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:37 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/30 22:30:57 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:27:23 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ void	echo_with_option(char **args)
 	}
 }
 
+void	echo_without_option(char **args)
+{
+	int	i;
+
+	i = 1;
+	while (args[i])
+	{
+		ft_putstr_fd(args[i], STDOUT_FILENO);
+		i++;
+		if (args[i])
+			ft_putstr_fd(" ", STDOUT_FILENO);
+	}
+}
+
 int	echo_builtin(char **args)
 {
 	int	i;
@@ -65,13 +79,7 @@ int	echo_builtin(char **args)
 			echo_with_option(args);
 		else
 		{
-			while (args[i])
-			{
-				ft_putstr_fd(args[i], STDOUT_FILENO);
-				i++;
-				if (args[i] != NULL)
-					ft_putstr_fd(" ", STDOUT_FILENO);
-			}
+			echo_without_option(args);
 			ft_putstr_fd("\n", STDOUT_FILENO);
 		}
 	}

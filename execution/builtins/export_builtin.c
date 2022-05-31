@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:06:09 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/30 22:29:28 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/31 11:06:14 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,27 +23,6 @@ void	export_without_args(t_envlist *env)
 		env = env->next;
 	}
 	g_mini.exit_code = 0;
-}
-
-int	check_key(char *arg, char *key)
-{
-	int	i;
-
-	i = 0;
-	if (char_isdigit(key) == 0 || (key[0] >= '0' && key[0] <= '9'))
-	{
-		error_message(key, "not a valid identifier");
-		g_mini.exit_code = 1;
-		return (0);
-	}
-	while (arg[i])
-	{
-		if (arg[i] == '=')
-			return (1);
-		i++;
-	}
-	g_mini.exit_code = 0;
-	return (0);
 }
 
 int	check_if_key_exist(t_envlist **env, char *key)

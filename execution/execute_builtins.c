@@ -1,17 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   execute_builtins.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 11:04:02 by hbouhsis          #+#    #+#             */
+/*   Updated: 2022/05/31 11:28:23 by hbouhsis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
 int	builtincheck(char *cmd)
 {
-	char	*builtins[7] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
-	int		i;
-
-	i = 0;
-	while (i < 7)
-	{
-		if (strcmp(cmd, builtins[i]) == 0)
-			return (1);
-		i++;
-	}
+	if (!ft_strcmp(cmd, "echo") || !ft_strcmp(cmd, "cd")
+		|| !ft_strcmp(cmd, "pwd") || !ft_strcmp(cmd, "export")
+		|| !ft_strcmp(cmd, "unset") || !ft_strcmp(cmd, "env")
+		|| !ft_strcmp(cmd, "exit"))
+		return (1);
 	return (0);
 }
 

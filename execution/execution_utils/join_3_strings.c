@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   join_3_strings.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/31 11:01:53 by hbouhsis          #+#    #+#             */
+/*   Updated: 2022/05/31 11:11:11 by hbouhsis         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include"minishell.h"
 
 static char	*ft_strcat(char	*dest, char	*src)
@@ -6,6 +18,8 @@ static char	*ft_strcat(char	*dest, char	*src)
 	int	destlen;
 
 	i = 0;
+	if (!src)
+		return (NULL);
 	destlen = ft_strlen(dest);
 	while (src[i] != '\0')
 	{
