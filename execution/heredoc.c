@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:39 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/30 22:36:21 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:32:43 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	open_heredoc_file(char *delimiter, char **filename)
 	temp = open(*filename, O_CREAT | O_RDWR | O_TRUNC, 0644);
 	while (1)
 	{
+		catch_signal();
 		rl = readline(">");
 		if (!rl || !(ft_strcmp(rl, delimiter)))
 		{

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:22 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/30 22:37:55 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/31 14:42:12 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ char	*ft_paths(char *env_var, char *cmd)
 
 	i = 0;
 	path = ft_split(env_var, ':');
-	while (path[i])
+	if (path)
 	{
-		path[i] = ft_strjoin2(path[i], "/");
-		path[i] = ft_strjoin2(path[i], cmd);
-		if (access(path[i], F_OK) == 0)
-			return (path[i]);
-		i++;
+		while (path[i])
+		{
+			path[i] = ft_strjoin2(path[i], "/");
+			path[i] = ft_strjoin2(path[i], cmd);
+			if (access(path[i], F_OK) == 0)
+				return (path[i]);
+			i++;
+		}
 	}
 	return (NULL);
 }
@@ -68,6 +71,7 @@ int	launch_child(int fd_in, int *ends, t_parse *cmd_list, t_envlist **env)
 {
 	int	id;
 
+	g_mini.flag = 1;
 	id = fork();
 	if (id == 0)
 	{
@@ -92,7 +96,10 @@ int	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
 	envp = envlist_to_envarr(envlist);
 	if (cmd_list->cmd)
 	{
-		path = ft_paths(env_value(envlist, "PATH"), cmd_list->cmd);
+		if (cmd_list->cmd[0] == '.' || cmd_list->cmd[0] == '/')
+			path = cmd_list->cmd;
+		else
+			path = ft_paths(env_value(envlist, "PATH"), cmd_list->cmd);
 		if (execve(path, cmd_list->args, envp) == -1)
 		{
 			error_message(cmd_list->cmd, "");

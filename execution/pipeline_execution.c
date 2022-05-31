@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:47 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/30 22:35:44 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/31 13:35:17 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends, t_envlist **env)
 		if (builtincheck(cmd_list->cmd))
 			return (executebuiltin(cmd_list, env));
 	}
+	g_mini.flag = 1;
 	id = fork();
 	if (id == 0)
 	{
@@ -72,6 +73,7 @@ void	parent_process(void)
 			g_mini.exit_code = WTERMSIG(stat_loc) + 128;
 		}
 	}
+	g_mini.flag = 0;
 }
 
 void	pipeline_execution(t_envlist **envlist)
