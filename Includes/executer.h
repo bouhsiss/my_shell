@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 11:45:29 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:33:10 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <errno.h>
 # include <stdbool.h>
 # include <dirent.h>
+# include <signal.h>
 
 # define WRITE_END 1
 # define READ_END 0
@@ -49,6 +50,8 @@ int			char_isdigit(char *str);
 void		error_message(char *cmd, char *message);
 char		*join_3_strings(char *s1, char *s2, char *s3);
 int			ft_atoi(const char *str);
+int			check_export_key(char *key);
+char		charsrch(const char *s, int c);
 //main_execution
 void		pipeline_execution(t_envlist **envlist);
 void		dupper(int fd_in, int *ends, t_parse *cmd_list, int fd_out);
@@ -57,7 +60,7 @@ void		unlink_heredocs(void);
 void		redirection_helper(t_parse *cmd_list);
 void		dupfd2fd(int fd, int othe_fd);
 void		dup_ends(int *ends, int fd_in);
-int			execute_cmd(t_parse *cmd_list, t_envlist **envlist);
+void		execute_cmd(t_parse *cmd_list, t_envlist **envlist);
 void		close_ends(int *ends, int fd_in);
 int			executebuiltin(t_parse *cmd_list, t_envlist **envlist);
 int			launch_child(int fd_in, int *ends, t_parse *cmd, t_envlist **env);
@@ -65,7 +68,7 @@ int			builtincheck(char *cmd);
 //env_utils
 char		*env_value(t_envlist **env, char *key);
 t_envlist	*env_builder(char **env);
-t_envlist	*envlist_new(char *key, char *value);
+t_envlist	*envlist_new(char *key,char sep, char *value);
 void		envlist_addback(t_envlist **env, t_envlist *new);
 char		**envlist_to_envarr(t_envlist **envlist);
 //===== builtins  =====

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 21:42:01 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/30 22:15:29 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:27:09 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int	throw_syntax(int err)
 		ft_putstr_fd("BASH: syntax error!\n", 2);
 	if (err == 2)
 		ft_putstr_fd("BASH: Open Quotes!\n", 2);
+	g_mini.exit_code = 258;
 	return (0);
 }
 

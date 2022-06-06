@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_builder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:17:57 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/31 13:18:00 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:31:30 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_envlist	*env_builder(char **env)
 		temp = ft_split(env[i], '=');
 		key = temp[0];
 		value = temp[1];
-		envlist_addback(&envlist, envlist_new(key, value));
+		envlist_addback(&envlist, envlist_new(key, '=', value));
 		free(temp);
 		i++;
 	}

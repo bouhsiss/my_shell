@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:44 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/31 13:17:52 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:31:45 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*env_value(t_envlist **envlist, char *key)
 	return (NULL);
 }
 
-t_envlist	*envlist_new(char *key, char *value)
+t_envlist	*envlist_new(char *key,char sep, char *value)
 {
 	t_envlist	*new;
 
@@ -38,7 +38,7 @@ t_envlist	*envlist_new(char *key, char *value)
 		return (NULL);
 	new->key = key;
 	new->value = value;
-	new->sep = '=';
+	new->sep = sep;
 	new->next = NULL;
 	return (new);
 }
@@ -80,4 +80,19 @@ int	check_key(char *arg, char *key)
 	}
 	g_mini.exit_code = 0;
 	return (0);
+}
+
+int	check_export_key(char *key)
+{
+	int	i;
+
+	i = 0;
+	if (char_isdigit(key) == 0 || (key[0] >= '0' && key[0] <= '9'))
+	{
+		error_message(key, "not a valid identifier");
+		g_mini.exit_code = 1;
+		return (0);
+	}
+	g_mini.exit_code = 0;
+	return (1);
 }

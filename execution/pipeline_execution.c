@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:47 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 12:02:46 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:41:48 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 int	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends, t_envlist **env)
 {
-	pid_t	id;
-
+	g_mini.flag = 1;
 	if (fd_in == 0 && !cmd_list->redirection && cmd_list->cmd )
 	{
 		if (builtincheck(cmd_list->cmd))
 			return (executebuiltin(cmd_list, env));
 	}
-	g_mini.flag = 1;
-	id = fork();
-	if (id == 0)
+	g_mini.id = fork();
+	if (g_mini.id == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		if (fd_in != STDIN_FILENO)
@@ -36,6 +34,8 @@ int	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends, t_envlist **env)
 		else
 			execute_cmd(cmd_list, env);
 	}
+	if (fd_in != STDIN_FILENO)
+		close(fd_in);
 	return (0);
 }
 
@@ -64,14 +64,7 @@ void	parent_process()
 	{
 		if (WIFEXITED(stat_loc))
 			g_mini.exit_code = WEXITSTATUS(stat_loc);
-		else if (WIFSIGNALED(stat_loc))
-		{
-			if (WTERMSIG(stat_loc) == SIGQUIT)
-				dprintf(2, "Quit: 3\n");
-			g_mini.exit_code = WTERMSIG(stat_loc) + 128;
-		}
 	}
-	g_mini.flag = 0;
 }
 
 void	pipeline_execution(t_envlist **envlist)

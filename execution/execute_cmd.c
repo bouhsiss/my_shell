@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:22 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 11:46:52 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 15:13:41 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,11 +69,8 @@ char	**envlist_to_envarr(t_envlist **envlist)
 
 int	launch_child(int fd_in, int *ends, t_parse *cmd_list, t_envlist **env)
 {
-	int	id;
-
-	g_mini.flag = 1;
-	id = fork();
-	if (id == 0)
+	g_mini.id = fork();
+	if (g_mini.id == 0)
 	{
 		signal(SIGQUIT, SIG_DFL);
 		dup_ends(ends, fd_in);
@@ -88,23 +85,33 @@ int	launch_child(int fd_in, int *ends, t_parse *cmd_list, t_envlist **env)
 	return (0);
 }
 
-int	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
+void check_directory(char *path)
+{
+	if (opendir(path))
+	{
+		error_message(path, "is a directory");
+		g_mini.exit_code = 126;
+		exit(g_mini.exit_code);
+	}
+}
+
+void	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
 {
 	char	*path;
 	char	**envp;
 
 	envp = envlist_to_envarr(envlist);
-	if (cmd_list->cmd)
+	if (!cmd_list->cmd)
+	{
+		g_mini.exit_code = 0;
+		exit(g_mini.exit_code);
+	}
+	else
 	{
 		if (cmd_list->cmd[0] == '.' || cmd_list->cmd[0] == '/')
 		{
 			path = cmd_list->cmd;
-			if (opendir(path))
-			{
-				error_message(path, "is a directory");
-				g_mini.exit_code = 126;
-				exit(g_mini.exit_code);
-			}
+			check_directory(path);
 		}
 		else
 			path = ft_paths(env_value(envlist, "PATH"), cmd_list->cmd);
@@ -115,5 +122,4 @@ int	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
 			exit(g_mini.exit_code);
 		}
 	}
-	exit(g_mini.exit_code);
 }

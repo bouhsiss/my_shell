@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:06:09 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/31 11:06:14 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:14:31 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ void	export_without_args(t_envlist *env)
 {
 	while (env)
 	{
-		if (!env->value)
+		if (!env->sep)
+			printf("declare -x %s\n", env->key);
+		else if (!env->value)
 			printf("declare -x %s%c\"\"\n", env->key, env->sep);
 		else
 			printf("declare -x %s%c\"%s\"\n", env->key, env->sep, env->value);
@@ -39,7 +41,7 @@ int	check_if_key_exist(t_envlist **env, char *key)
 	return (0);
 }
 
-void	replace_value(t_envlist **env, char *key, char *value)
+void	replace_value(t_envlist **env, char *key, char sep,char *value)
 {
 	t_envlist	*env_temp;
 
@@ -48,6 +50,7 @@ void	replace_value(t_envlist **env, char *key, char *value)
 	{
 		if (strcmp(key, env_temp->key) == 0)
 		{
+			env_temp->sep = sep;
 			env_temp->value = value;
 			return ;
 		}
@@ -65,12 +68,12 @@ void	export_with_args(t_envlist *env, char **args)
 	while (args[i])
 	{
 		temp = ft_split(args[i], '=');
-		if (check_key(args[i], temp[0]))
+		if (check_export_key(temp[0]))
 		{
 			if (check_if_key_exist(&env, temp[0]))
-				replace_value(&env, temp[0], temp[1]);
+				replace_value(&env, temp[0],charsrch(args[i], '='), temp[1]);
 			else
-				envlist_addback(&g_mini.envlist, envlist_new(temp[0], temp[1]));
+				envlist_addback(&g_mini.envlist, envlist_new(temp[0], charsrch(args[i], '='), temp[1]));
 		}
 		i++;
 	}

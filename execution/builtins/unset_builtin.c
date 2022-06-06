@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 11:02:39 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/31 11:39:24 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 17:17:20 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ void	delete_envvar(t_envlist **envlist, char *key)
 	if (temp == NULL)
 		return ;
 	prev->next = temp->next;
+	free(temp->key);
+	free(temp->value);
 	free(temp);
 }
 

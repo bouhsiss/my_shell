@@ -6,7 +6,7 @@
 #    By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/12 10:52:24 by zmeribaa          #+#    #+#              #
-#    Updated: 2022/05/31 13:16:20 by hbouhsis         ###   ########.fr        #
+#    Updated: 2022/06/06 17:34:03 by hbouhsis         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS	= minishell.c \
 ./execution/execution_utils/ft_strjoin2.c \
 ./execution/execution_utils/join_3_strings.c \
 ./execution/execution_utils/printing_tools.c \
+./execution/execution_utils/charsrch.c \
 \
 ./execution/execute_builtins.c \
 ./execution/execute_cmd.c \
@@ -55,7 +56,7 @@ SRCS	= minishell.c \
 
 NAME 	=	Minishell
 CC		= 	cc
-CFLAGS	=	-Wall -Wextra -Werror #-fsanitize=address
+CFLAGS	=	-Wall -Wextra -Werror 
 LDFLAGS	=	-L /Users/$(USER)/.brew/opt/readline/lib
 CPPFLAGS=	-I /Users/$(USER)/.brew/opt/readline/include
 READLINE=	-lreadline $(LDFLAGS) $(CPPFLAGS)

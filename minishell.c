@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/31 14:41:52 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:28:37 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int ac, char **av, char **env)
 {
 	ac = 0;
 	av = 0;
+	g_mini.flag = 1;
 	g_mini.envlist = env_builder(env);
 	while (1)
 	{
@@ -42,7 +43,3 @@ int	main(int ac, char **av, char **env)
 		}
 	}
 }
-
-//still neeed to fix signals in heredoc 
-/// also the exit code when exit is in a pipeline 
-// also some cases in exit (directory)
