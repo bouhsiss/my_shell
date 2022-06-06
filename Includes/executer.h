@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/09 14:17:43 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/31 11:36:56 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:45:29 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <sys/stat.h>
 # include <errno.h>
 # include <stdbool.h>
+# include <dirent.h>
 
 # define WRITE_END 1
 # define READ_END 0

@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:22 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/05/31 14:42:12 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 11:46:52 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,15 @@ int	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
 	if (cmd_list->cmd)
 	{
 		if (cmd_list->cmd[0] == '.' || cmd_list->cmd[0] == '/')
+		{
 			path = cmd_list->cmd;
+			if (opendir(path))
+			{
+				error_message(path, "is a directory");
+				g_mini.exit_code = 126;
+				exit(g_mini.exit_code);
+			}
+		}
 		else
 			path = ft_paths(env_value(envlist, "PATH"), cmd_list->cmd);
 		if (execve(path, cmd_list->args, envp) == -1)
@@ -107,6 +115,5 @@ int	execute_cmd(t_parse *cmd_list, t_envlist **envlist)
 			exit(g_mini.exit_code);
 		}
 	}
-	g_mini.exit_code = 0;
 	exit(g_mini.exit_code);
 }
