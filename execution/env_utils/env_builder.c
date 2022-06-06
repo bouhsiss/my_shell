@@ -6,11 +6,26 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/31 13:17:57 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 17:31:30 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:38:21 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
+
+int	envlist_sz(t_envlist **envlist)
+{
+	int			count;
+	t_envlist	*env;
+
+	count = 0;
+	env = (*envlist);
+	while (env)
+	{
+		count++;
+		env = env->next;
+	}
+	return (count);
+}
 
 t_envlist	*env_builder(char **env)
 {

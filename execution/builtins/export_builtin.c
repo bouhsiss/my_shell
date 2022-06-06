@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:06:09 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 18:14:31 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:35:31 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	check_if_key_exist(t_envlist **env, char *key)
 	return (0);
 }
 
-void	replace_value(t_envlist **env, char *key, char sep,char *value)
+void	replace_value(t_envlist **env, char *key, char sep, char *value)
 {
 	t_envlist	*env_temp;
 
@@ -71,9 +71,10 @@ void	export_with_args(t_envlist *env, char **args)
 		if (check_export_key(temp[0]))
 		{
 			if (check_if_key_exist(&env, temp[0]))
-				replace_value(&env, temp[0],charsrch(args[i], '='), temp[1]);
+				replace_value(&env, temp[0], charsrch(args[i], '='), temp[1]);
 			else
-				envlist_addback(&g_mini.envlist, envlist_new(temp[0], charsrch(args[i], '='), temp[1]));
+				envlist_addback(&g_mini.envlist, envlist_new(temp[0],
+						charsrch(args[i], '='), temp[1]));
 		}
 		i++;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 15:04:41 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/30 15:57:28 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:31:11 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	free_command(void)
 
 void	free_all(void)
 {
+	g_mini.l_err = 0;
 	if (g_mini.line)
 		free(g_mini.line);
 	free_command();

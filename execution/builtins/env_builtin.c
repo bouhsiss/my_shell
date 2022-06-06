@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:58 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 18:12:19 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:36:28 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,10 @@ int	env_builtin(void)
 		{
 			ft_putstr_fd(env->key, 1);
 			ft_putchar_fd(env->sep, 1);
-		
-		if (env->value == NULL)
-			write(1, "\n", 1);
-		else
-			ft_putendl_fd(env->value, 1);
+			if (env->value == NULL)
+				write(1, "\n", 1);
+			else
+				ft_putendl_fd(env->value, 1);
 		}
 		env = env->next;
 	}

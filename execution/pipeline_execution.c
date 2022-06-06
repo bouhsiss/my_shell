@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:47 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 15:41:48 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:37:02 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 
 int	exec_last_cmd(t_parse *cmd_list, int fd_in, int *ends, t_envlist **env)
 {
-	g_mini.flag = 1;
-	if (fd_in == 0 && !cmd_list->redirection && cmd_list->cmd )
+	if (fd_in == 0 && !cmd_list->redirection && cmd_list->cmd)
 	{
 		if (builtincheck(cmd_list->cmd))
 			return (executebuiltin(cmd_list, env));
@@ -56,7 +55,7 @@ void	checker(t_parse *cmd_list)
 	}
 }
 
-void	parent_process()
+void	parent_process(void)
 {
 	int	stat_loc;
 

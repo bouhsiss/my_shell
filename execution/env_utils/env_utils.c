@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 12:05:44 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 17:31:45 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:37:52 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*env_value(t_envlist **envlist, char *key)
 	return (NULL);
 }
 
-t_envlist	*envlist_new(char *key,char sep, char *value)
+t_envlist	*envlist_new(char *key, char sep, char *value)
 {
 	t_envlist	*new;
 

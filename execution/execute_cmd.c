@@ -6,7 +6,7 @@
 /*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 13:07:22 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 15:13:41 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:37:22 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,6 @@ char	*ft_paths(char *env_var, char *cmd)
 		}
 	}
 	return (NULL);
-}
-
-int	envlist_sz(t_envlist **envlist)
-{
-	int			count;
-	t_envlist	*env;
-
-	count = 0;
-	env = (*envlist);
-	while (env)
-	{
-		count++;
-		env = env->next;
-	}
-	return (count);
 }
 
 char	**envlist_to_envarr(t_envlist **envlist)
@@ -85,7 +70,7 @@ int	launch_child(int fd_in, int *ends, t_parse *cmd_list, t_envlist **env)
 	return (0);
 }
 
-void check_directory(char *path)
+void	check_directory(char *path)
 {
 	if (opendir(path))
 	{
