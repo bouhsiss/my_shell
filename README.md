@@ -28,7 +28,7 @@ _ Implement thet following builtins :<br/>
 ## why the project is useful ?
 	_ the aim of this project if to gain experience with some advanced programming techniques like process creationand control, file descriptors, signals and pipes.
 ## Usage.
-	_ clone the repo, execute <sub>make</sub> command and then execute <sub>./Minishell</sub> and it will display a prompt. 
+	_ clone the repo, execute make command and then execute ./Minishell and it will display a prompt. 
 	then you can have fun with it.
 ## Who contributes to the project ?
 	- the Parsing part was done by :
