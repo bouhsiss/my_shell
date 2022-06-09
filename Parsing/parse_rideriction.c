@@ -6,15 +6,15 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/11 03:57:57 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/30 15:06:05 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/04/14 00:28:56 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_redirection	*init_redirection(char *val, t_type type)
+t_redirection *init_redirection(char *val, t_type type)
 {
-	t_redirection	*redirection;
+	t_redirection *redirection;
 
 	redirection = (t_redirection *)malloc(sizeof(t_redirection));
 	redirection->file = ft_strdup(val);
@@ -25,8 +25,8 @@ t_redirection	*init_redirection(char *val, t_type type)
 
 void	add_redirecion(t_redirection *head, char *val, t_type type)
 {
-	t_redirection	*current;
-	t_redirection	*new;
+	t_redirection *current;
+	t_redirection *new;
 
 	current = head;
 	while (current->next != NULL)

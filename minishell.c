@@ -3,42 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 10:53:58 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/06/06 18:53:49 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/05/08 14:34:51 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	exit_shell(void)
+int main(int ac, char **av, char **env)
 {
-	ft_putendl_fd("exit", STDERR_FILENO);
-	exit(g_mini.exit_code);
-}
-
-int	main(int ac, char **av, char **env)
-{
-	ac = 0;
-	av = 0;
-	g_mini.envlist = env_builder(env);
-	while (1)
+	t_lexer *lexer;
+	t_token *token;
+	char *buffer;
+	
+	token = NULL;
+	while(1)
 	{
-		free_all();
-		catch_signal();
-		g_mini.line = readline("UnToutPetitShell👼 :");
-		if (g_mini.line == NULL)
-			exit_shell();
-		if (g_mini.line[0] == '\0')
-			continue ;
-		add_history(g_mini.line);
-		parse();
-		if (!g_mini.l_err && g_mini.command)
+		
+		buffer = readline("MINISHELL 🥵:");
+		if (buffer == NULL)
+			break ;
+		lexer = init_lexer(buffer);
+		add_history(buffer);
+		while((token = lexer_get_next_token(lexer)) != NULL)
 		{
-			implement_heredoc();
-			pipeline_execution(&g_mini.envlist);
-			unlink_heredocs();
+			printf("TOKEN(%d, %s)\n", token->type, token->value);
 		}
 	}
+	return 0;
 }

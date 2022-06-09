@@ -6,15 +6,16 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/12 12:36:49 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/05/30 15:07:05 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/04/14 18:23:45 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+
 int	ft_strlen(char *s)
 {
-	int	i;
+	int i;
 
 	if (!s)
 		return (0);
@@ -29,42 +30,39 @@ char	*ft_strjoin(char *s1, char *s2)
 	char		*str;
 	int			i;
 	int			j;
-
-	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (!s1)
-		return (s2);
+		return (ft_strdup(s2));
 	if (!s2)
-		return (s1);
+		return (ft_strdup(s1));
+	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (str == NULL)
 		return (NULL);
-	i = -1;
-	while (s1[++i])
-		str[i] = s1[i];
-	j = -1;
-	while (s2[++j])
+	i = 0;
+	while (s1[i])
 	{
-		str[i] = s2[j];
+		str[i] = s1[i];
 		i++;
 	}
+	j = 0;
+	while (s2[j])
+		str[i++] = s2[j++];
 	str[i] = '\0';
-	free(s1);
-	free(s2);
 	return (str);
 }
 
-char	*ft_strdup(char *s)
+char *ft_strdup(char *s)
 {
-	char	*p;
-	int		i;
+	char *p;
+	int i;
 
 	i = 0;
 	while (s[i])
 		i++;
-	p = (char *)malloc(i + 1);
+	p = (char *)malloc(sizeof(char) * (i + 1));
 	if (p == NULL)
 		return (NULL);
 	i = 0;
-	while (s[i] != '\0')
+	while (s[i])
 	{
 		p[i] = s[i];
 		i++;
@@ -73,9 +71,9 @@ char	*ft_strdup(char *s)
 	return (p);
 }
 
-void	ft_putstr_fd(char *s, int fd)
+void ft_putstr_fd(char *s, int fd)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while (s[i])
