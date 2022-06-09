@@ -36,7 +36,7 @@ then you can have fun with it.
 	https://github.com/zmeribaa
 - the Execution part was done by @me.
 # Ressources.
-	https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
-	https://www.rozmichelle.com/pipes-forks-dups/
-	https://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html
+https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
+https://www.rozmichelle.com/pipes-forks-dups/
+https://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html
 
