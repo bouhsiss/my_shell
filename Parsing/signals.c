@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hbouhsis <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: hbouhsis <hbouhsis@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 18:30:19 by hbouhsis          #+#    #+#             */
-/*   Updated: 2022/06/06 18:30:21 by hbouhsis         ###   ########.fr       */
+/*   Updated: 2022/06/06 18:40:50 by hbouhsis         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"minishell.h"
 
-static void	ext_child_process(int signum)
+static void	exit_child(int signum)
 {
 	if (signum == SIGINT)
 	{
@@ -30,7 +30,7 @@ static void	ext_child_process(int signum)
 	}
 }
 
-void	child_process(int signum)
+void	quit_handler(int signum)
 {
 	if (!kill(g_mini.id, signum))
 	{
@@ -46,15 +46,15 @@ void	child_process(int signum)
 		}
 	}
 	else
-		ext_child_process(signum);
+		exit_child(signum);
 }
 
 void	ft_signals(int signum)
 {
 	if (g_mini.id != 0)
-		child_process(signum);
+		quit_handler(signum);
 	else
-		ext_child_process(signum);
+		exit_child(signum);
 }
 
 void	catch_signal(void)
