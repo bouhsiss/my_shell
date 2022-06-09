@@ -15,16 +15,16 @@ _ Handle " (double quote) which should prevent the shell from interpreting the m
 _ Implement redirections ( < _ > _ >> _ <<) .<br/>
 _ Implement infinite **pipes**.<br/>
 _ Handle **environment variables** which should expand to their values by using " $ ".<br/>
-_ Handle ** $? ** which should expand to the exit status value.<br/>
+_ Handle **$?** which should expand to the exit status value.<br/>
 _ Handle ctrl-C, ctrl-D and ctrl-\ .<br/>
 _ Implement thet following builtins :<br/>
-	- **echo** with option -n <br/>
-	- **cd** with only a relative or absolute path <br/>
-	- **pwd** with no options <br/>
-	- **export** with no options <br/>
-	- **unset** with no options <br/>
-	- **env** with no options or arguments <br/>
-	- **exit** with no options <br/>
+	&nbsp;- **echo** with option -n <br/>
+	&nbsp;- **cd** with only a relative or absolute path <br/>
+	&nbsp;- **pwd** with no options <br/>
+	&nbsp;- **export** with no options <br/>
+	&nbsp;- **unset** with no options <br/>
+	&nbsp;- **env** with no options or arguments <br/>
+	&nbsp;- **exit** with no options <br/>
 ## why the project is useful
 	_ the aim of this project if to gain experience with some advanced programming techniques like process creationand control, file descriptors, signals and pipes.
 ## Usage 
