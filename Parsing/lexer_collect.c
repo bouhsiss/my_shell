@@ -6,7 +6,7 @@
 /*   By: zmeribaa <zmeribaa@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/03 22:52:56 by zmeribaa          #+#    #+#             */
-/*   Updated: 2022/04/22 22:55:49 by zmeribaa         ###   ########.fr       */
+/*   Updated: 2022/05/30 15:56:22 by zmeribaa         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,12 @@
 
 t_token	*lexer_collect_word(t_lexer *lexer)
 {
-	char *val;
-	char *s;
-	
+	char	*val;
+	char	*s;
+
 	val = ft_strdup("");
-	while(!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
+	while (!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
 	{
-		
 		if (lexer->c == '\'' || lexer->c == '\"')
 		{
 			s = join_string(lexer, lexer->c);
@@ -29,20 +28,17 @@ t_token	*lexer_collect_word(t_lexer *lexer)
 		}
 		else if (lexer->c == '$')
 		{
-			s = expandInWord(lexer);
+			s = expandinword(lexer);
 			lexer_retreat(lexer);
 		}
 		else
-			s = lexer_get_current_char_as_string(lexer);
+			s = lex_crr_str(lexer);
 		val = ft_strjoin(val, s);
 		lexer_advance(lexer);
 	}
 	if (val[0] == '\0')
-	{
-		free(val);
-		return (NULL);
-	}
-	return (init_token(T_WORD, val));
+		return (free_retnull(val));
+	return (init_tok(T_WORD, val));
 }
 
 char	*join_word(t_lexer *lexer)
@@ -61,19 +57,16 @@ char	*join_word(t_lexer *lexer)
 		}
 		else if (lexer->c == '$')
 		{
-			s = expandInQuotes(lexer);
+			s = expandinquotes(lexer);
 			lexer_retreat(lexer);
 		}
 		else
-			s = lexer_get_current_char_as_string(lexer);
+			s = lex_crr_str(lexer);
 		val = ft_strjoin(val, s);
 		lexer_advance(lexer);
 	}
 	if (val[0] == '\0')
-	{
-		free(val);
-		return (NULL);
-	}
+		return ((char *)free_retnull(val));
 	return (val);
 }
 
@@ -85,8 +78,7 @@ char	*after_quotes(t_lexer *lexer, char *val)
 		return (ft_strjoin(val, join_word(lexer)));
 }
 
-
-t_token *lexer_collect_string(t_lexer *lexer, char c)
+t_token	*lexer_collect_string(t_lexer *lexer, char c)
 {
 	char	*val;
 	char	*s;
@@ -97,11 +89,11 @@ t_token *lexer_collect_string(t_lexer *lexer, char c)
 	{
 		if (lexer->c == '$' && c == '\"')
 		{
-			s = expandInQuotes(lexer);
+			s = expandinquotes(lexer);
 			lexer_retreat(lexer);
 		}
 		else
-			s = lexer_get_current_char_as_string(lexer);			
+			s = lex_crr_str(lexer);
 		val = ft_strjoin(val, s);
 		lexer_advance(lexer);
 	}
@@ -110,10 +102,10 @@ t_token *lexer_collect_string(t_lexer *lexer, char c)
 	lexer_advance(lexer);
 	if (!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
 		val = after_quotes(lexer, val);
-	return (init_token(T_WORD, val));
+	return (init_tok(T_WORD, val));
 }
 
-char *join_string(t_lexer *lexer, char c)
+char	*join_string(t_lexer *lexer, char c)
 {
 	char	*val;
 	char	*s;
@@ -124,16 +116,16 @@ char *join_string(t_lexer *lexer, char c)
 	{
 		if (lexer->c == '$' && c == '\"')
 		{
-			s = expandInQuotes(lexer);
+			s = expandinquotes(lexer);
 			lexer_retreat(lexer);
 		}		
 		else
-			s = lexer_get_current_char_as_string(lexer);
+			s = lex_crr_str(lexer);
 		val = ft_strjoin(val, s);
 		lexer_advance(lexer);
 	}
 	if (lexer->c != c)
-		mini.l_err = 1;
+		g_mini.l_err = 1;
 	lexer_advance(lexer);
 	if (!isop(lexer->c) && !ft_isspace(lexer->c) && lexer->c != '\0')
 		val = after_quotes(lexer, val);
