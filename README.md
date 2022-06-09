@@ -26,15 +26,15 @@ _ Implement thet following builtins :<br/>
 	&emsp;- **env** with no options or arguments <br/>
 	&emsp;- **exit** with no options <br/>
 ## why the project is useful ?
-	_ the aim of this project if to gain experience with some advanced programming techniques like process creationand control, file descriptors, signals and pipes.
+_ the aim of this project if to gain experience with some advanced programming techniques like process creationand control, file descriptors, signals and pipes.
 ## Usage.
-	_ clone the repo, execute make command and then execute ./Minishell and it will display a prompt. 
-	then you can have fun with it.
+_ clone the repo, execute ```make``` command and then execute ```./Minishell``` and it will display a prompt. 
+then you can have fun with it.
 ## Who contributes to the project ?
-	- the Parsing part was done by :
+- the Parsing part was done by :
 	@zmeribaa
 	https://github.com/zmeribaa
-	- the Execution part was done by @me.
+- the Execution part was done by @me.
 # Ressources.
 	https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf
 	https://www.rozmichelle.com/pipes-forks-dups/
