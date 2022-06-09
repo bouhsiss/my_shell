@@ -32,7 +32,7 @@ _ clone the repo, execute ```make``` command and then execute ```./Minishell``` 
 then you can have fun with it.
 ## Who contributes to the project ?
 - the Parsing part was done by :
-	@zmeribaa
+	@zmeribaa</br>
 	https://github.com/zmeribaa
 - the Execution part was done by @me.
 # Ressources.
