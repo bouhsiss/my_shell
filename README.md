@@ -18,13 +18,13 @@ _ Handle **environment variables** which should expand to their values by using 
 _ Handle ** $? ** which should expand to the exit status value.<br/>
 _ Handle ctrl-C, ctrl-D and ctrl-\ .<br/>
 _ Implement thet following builtins :<br/>
-	"\t"- **echo** with option -n <br/>
-	"\t"- **cd** with only a relative or absolute path <br/>
-	"\t"- **pwd** with no options <br/>
-	"\t"- **export** with no options <br/>
-	"\t"- **unset** with no options <br/>
-	"\t"- **env** with no options or arguments <br/>
-	"\t"- **exit** with no options <br/>
+	\t- **echo** with option -n <br/>
+	\t- **cd** with only a relative or absolute path <br/>
+	\t- **pwd** with no options <br/>
+	\t- **export** with no options <br/>
+	\t- **unset** with no options <br/>
+	\t- **env** with no options or arguments <br/>
+	\t- **exit** with no options <br/>
 ## why the project is useful
 	_ the aim of this project if to gain experience with some advanced programming techniques like process creationand control, file descriptors, signals and pipes.
 ## Usage 
