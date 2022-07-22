@@ -36,7 +36,23 @@ then you can have fun with it.
 	https://github.com/zmeribaa
 - the Execution part was done by @me.
 # Ressources.
-https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf</br>
-https://www.rozmichelle.com/pipes-forks-dups/</br>
-https://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html</br>
+https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf </br>
+https://www.rozmichelle.com/pipes-forks-dups/ </br>
+https://medium.com/swlh/tutorial-to-code-a-simple-shell-in-c-9405b2d3533e </br>
+https://www.geeksforgeeks.org/making-linux-shell-c/ </br>
+https://www.gnu.org/savannah-checkouts/gnu/bash/manual/bash.html#Simple-Commands </br>
+https://mywiki.wooledge.org/BashParser </br>
+http://aosabook.org/en/bash.html </br>
+https://www.cs.cornell.edu/courses/cs414/2004su/homework/shell/shell.html </br>
+https://brennan.io/2015/01/16/write-a-shell-in-c/ </br>
+https://hackernoon.com/lets-build-a-linux-shell-part-i-bz3n3vg1 </br>
+https://chrismartine-e.medium.com/creating-your-own-linux-shell-1cbaaae2c41c </br>
+https://www.quora.com/How-do-I-create-my-own-shell-in-Linux </br>
+https://www.codementor.io/@sandesh87/how-and-why-i-built-a-mini-linux-shell-using-c-1dqk5olxgw </br>
+https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html </br>
+https://pubs.opengroup.org/onlinepubs/7908799/xcu/chap2.html </br>
+https://blog.scottlowe.org/2015/01/27/using-fork-branch-git-workflow/ </br>
+https://github.com/moisam/lets-build-a-linux-shell </br>
+https://putaindecode.io/articles/maitriser-les-redirections-shell/ </br>
+
 
